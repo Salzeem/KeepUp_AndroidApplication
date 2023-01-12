@@ -24,6 +24,8 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -123,34 +125,42 @@ public class ClassFragment extends Fragment {
          * @return
          */
         public View getView(int position, View convertView, ViewGroup parent) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             LayoutInflater inflater = ClassFragment.this.getLayoutInflater();
             View result = inflater.inflate(R.layout.group_list_view, null);
-            TextView message = result.findViewById(R.id.GroupNameLabel);
-            ImageView deleteButton = result.findViewById(R.id.RemoveGroup);
-            ImageView classIcon = result.findViewById(R.id.GroupIconDisplay);
-            TextView groupDescription = result.findViewById(R.id.GroupDescriptionLabel);
-            CardView cardGroup = result.findViewById(R.id.CardGroup);
-            ImageView EditIcon = result.findViewById(R.id.EditIcon);
-            EditIcon.setVisibility(View.INVISIBLE);
+            if (user != null) {
+                TextView message = result.findViewById(R.id.GroupNameLabel);
+                ImageView deleteButton = result.findViewById(R.id.RemoveGroup);
+                ImageView classIcon = result.findViewById(R.id.GroupIconDisplay);
+                TextView groupDescription = result.findViewById(R.id.GroupDescriptionLabel);
+                CardView cardGroup = result.findViewById(R.id.CardGroup);
+                ImageView EditIcon = result.findViewById(R.id.EditIcon);
+                EditIcon.setVisibility(View.INVISIBLE);
 
 
-            deleteButton.setTag(position);
-            classIcon.setTag(position);
-            cardGroup.setTag(position);
+                deleteButton.setTag(position);
+                classIcon.setTag(position);
+                cardGroup.setTag(position);
 
-            message.setText(Studentclass.get(position));
-            groupDescription.setText(StudentDesc.get(Studentclass.get(position)));
-            classIcon.setImageResource(R.drawable.class_icon);
-            classIcon.setColorFilter((colorIcon[ (int)Math.floor(Math.random()*(colorIcon.length))]));
-            classIcon.setVisibility(View.INVISIBLE);
+                message.setText(Studentclass.get(position));
+                groupDescription.setText(StudentDesc.get(Studentclass.get(position)));
+                classIcon.setImageResource(R.drawable.class_icon);
+                classIcon.setColorFilter((colorIcon[(int) Math.floor(Math.random() * (colorIcon.length))]));
+                classIcon.setVisibility(View.INVISIBLE);
 
-            ImageView removeClassIV= result.findViewById(R.id.RemoveGroup);
-            removeClassIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    RemoveClass(view);
-                }
-            });
+                ImageView removeClassIV = result.findViewById(R.id.RemoveGroup);
+                removeClassIV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        RemoveClass(view);
+                    }
+                });
+
+            }
+            else
+            {
+                getActivity().finish();
+            }
             return result;
         }
 

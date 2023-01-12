@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     tools:context=".MainActivity">
 
 
@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -59,7 +60,7 @@
         android:id="@+id/FragmentMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+
         app:layout_constraintBottom_toBottomOf="@id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +70,7 @@
             android:id="@+id/fragmentContainerView"
             android:name="com.example.android.ClassFragment"
             android:layout_width="match_parent"
-            android:layout_height="647dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

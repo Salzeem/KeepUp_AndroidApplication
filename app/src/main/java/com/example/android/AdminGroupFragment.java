@@ -68,9 +68,6 @@ public class AdminGroupFragment extends Fragment {
     protected static final String FRAGMENT_NAME="ADMINGroupFragment";
     protected static int colorIcon[] = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
 
-    //private static final int[] memberchip={R.id.Chip1,R.id.Chip2,R.id.Chip3, R.id.Chip4};
-    //private final Chip[] switch_buttons=new Chip[memberchip.length];
-    //private  Button EmailInstrucorBtn;
     private ViewGroupsAdapter adapter;
     private ArrayList<GroupsInformation> groups = new ArrayList<GroupsInformation>();
     private ListView GroupLists;

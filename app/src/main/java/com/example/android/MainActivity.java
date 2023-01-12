@@ -20,7 +20,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -29,10 +33,6 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME="MainActivity";
-    String yearPref;
-    String termPref;
-    ArrayList<String> coursePref;
-    ArrayList<String> levelPref;
     public static String UserId;
     Button classButton;
     Button groupButton;
@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Switches view to LoginActivity
      */
-    public void SignUserOut()
-    {
-        finish();
+    public void SignUserOut() {
+        FirebaseAuth.getInstance().signOut();
+        Toast.makeText(this, "Signed Out! ", Toast.LENGTH_LONG);
     }
 
     public static String title="Home";
@@ -129,16 +129,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
-
-//        termPref=extras.getString("term");
-//        yearPref=extras.getString("year");
-//        levelPref=(ArrayList<String>) getIntent().getSerializableExtra("level");
-//        coursePref=(ArrayList<String>) getIntent().getSerializableExtra("courses");
-//        Log.i(ACTIVITY_NAME,termPref);
-//        Log.i(ACTIVITY_NAME,yearPref);
-//        Log.i(ACTIVITY_NAME,String.valueOf(levelPref));
-//        Log.i(ACTIVITY_NAME,String.valueOf(coursePref));
 
         FragmentManager fragmentManager =getSupportFragmentManager();
 

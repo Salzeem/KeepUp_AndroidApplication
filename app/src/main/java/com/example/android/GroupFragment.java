@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 
@@ -72,9 +74,7 @@ public class GroupFragment extends Fragment {
     protected static final String FRAGMENT_NAME="GroupFragment";
     protected static int colorIcon[] = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
 
-    //private static final int[] memberchip={R.id.Chip1,R.id.Chip2,R.id.Chip3, R.id.Chip4};
-    //private final Chip[] switch_buttons=new Chip[memberchip.length];
-    //private  Button EmailInstrucorBtn;
+
     private ViewGroupsAdapter adapter;
     private ArrayList<GroupsInformation> groups = new ArrayList<GroupsInformation>();
     private ListView GroupLists;
@@ -322,43 +322,50 @@ public class GroupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        String title="Groups";
-        getActivity().setTitle(title);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         View test=inflater.inflate(R.layout.fragment_group, container, false);
-        GroupLists = test.findViewById(R.id.GroupinformationList);
-        nogroupinfo = test.findViewById(R.id.NoGroupinfo);
-        refresh = test.findViewById(R.id.refresh);
+        if (user != null) {
+            String title="Groups";
+            getActivity().setTitle(title);
+            GroupLists = test.findViewById(R.id.GroupinformationList);
+            nogroupinfo = test.findViewById(R.id.NoGroupinfo);
+            refresh = test.findViewById(R.id.refresh);
 
-        adapter = new ViewGroupsAdapter(this.getContext(), 0 );
-        GroupLists.setAdapter(adapter);
-        nogroupinfo.setText(R.string.NoGroupsPage);
-        nogroupinfo.setVisibility(View.VISIBLE);
-        GroupLists.setVisibility(View.INVISIBLE);
+            adapter = new ViewGroupsAdapter(this.getContext(), 0 );
+            GroupLists.setAdapter(adapter);
+            nogroupinfo.setText(R.string.NoGroupsPage);
+            nogroupinfo.setVisibility(View.VISIBLE);
+            GroupLists.setVisibility(View.INVISIBLE);
 
-        CardView btn=test.findViewById(R.id.Banner);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView,CreateGroupFragment.class,getArguments())
-                        .setReorderingAllowed(true)
-                        .addToBackStack("tempBackStack")
-                        .commit();
-            }
-        });
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RefreshPage(view);
-            }
-        });
-        Log.i(FRAGMENT_NAME, "This is the user ID: " + mParam1 );
-        DisplayGroupInfo(mParam1);
+            CardView btn=test.findViewById(R.id.Banner);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragmentContainerView,CreateGroupFragment.class,getArguments())
+                            .setReorderingAllowed(true)
+                            .addToBackStack("tempBackStack")
+                            .commit();
+                }
+            });
+            refresh.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RefreshPage(view);
+                }
+            });
+            Log.i(FRAGMENT_NAME, "This is the user ID: " + mParam1 );
+            DisplayGroupInfo(mParam1);
 
 
+
+            return test;
+        } else {
+            getActivity().finish();
+        }
 
         return test;
+
     }
 
 
@@ -370,6 +377,8 @@ public class GroupFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(UserID);
             mParam2 = getArguments().getString(username);
@@ -558,13 +567,6 @@ public class GroupFragment extends Fragment {
         StudentList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
 
- /*       for (int i =0; i < (group.getMembers().size()); i++)
-        {
-            switch_buttons[i]= views.findViewById(memberchip[i]);
-            switch_buttons[i].setVisibility(View.VISIBLE);
-            switch_buttons[i].setText(group.getMembers().get(i));
-
-        }*/
 
 
         GroupName.setText(group.getNameofGroup());

@@ -151,12 +151,7 @@ public class AdminAppointmentFragment extends Fragment {
 
             ImageView removeClassIV= result.findViewById(R.id.RemoveGroup);
             removeClassIV.setVisibility(View.INVISIBLE);
-//            removeClassIV.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    RemoveAppointment(view);
-//                }
-//            });
+
 
             cardGroup.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -64,7 +64,9 @@ public class CreateGroupFragment extends Fragment {
     protected EditText GroupDescInput;
 
     protected static HashMap removeditems =new HashMap<String, String>();
-
+    Button Class  ;
+    Button Group ;
+    Button appoints ;
 
     protected static ArrayList<String> memberIds = new ArrayList<>();
 
@@ -154,7 +156,6 @@ public class CreateGroupFragment extends Fragment {
         AddButton = inflated_view.findViewById(R.id.AddButton);
         StudentList = inflated_view.findViewById(R.id.UsersAdd);
         addstudentadapter = new RecyclerViewAdapter_AddStudent(this.getContext(),user , 1);
-//        ProgressIndicator = inflated_view.findViewById(R.id.ProgressIndicator);
         GroupNameInput = inflated_view.findViewById(R.id.TextGroupName);
         GroupDescInput = inflated_view.findViewById(R.id.GroupDescInput);
 
@@ -173,11 +174,21 @@ public class CreateGroupFragment extends Fragment {
 
         StudentList.setAdapter(addstudentadapter);
         StudentList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
+        Class = getActivity().findViewById(R.id.class_button);
+        Group = getActivity().findViewById(R.id.groups_button);
+        appoints = getActivity().findViewById(R.id.schedule_button);
+        Class.setVisibility(View.INVISIBLE);
+        Group.setVisibility(View.INVISIBLE);
+        appoints.setVisibility(View.INVISIBLE);
+
+
 
         PopulateFormDb(UserId);
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GroupDescInput.clearFocus();
+                GroupNameInput.clearFocus();
                 AddUser(view);
             }
         });
@@ -186,7 +197,8 @@ public class CreateGroupFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 students.clear();
-
+                GroupDescInput.clearFocus();
+                GroupNameInput.clearFocus();
                 //  finalmemberEmails.clear();
                 memberIds.clear();
                 finalmemberIds.clear();
@@ -244,6 +256,8 @@ public class CreateGroupFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                GroupDescInput.clearFocus();
+                GroupNameInput.clearFocus();
 
             }
         });
@@ -480,6 +494,27 @@ public class CreateGroupFragment extends Fragment {
         super.onStop();
         user.clear();
         students.clear();
+        Class.setVisibility(View.VISIBLE);
+        Group.setVisibility(View.VISIBLE);
+        appoints.setVisibility(View.VISIBLE);
+
         // courses.clear();
     }
+
+
+    public void onPause()
+    {
+
+        super.onPause();
+        Class.setVisibility(View.VISIBLE);
+        Group.setVisibility(View.VISIBLE);
+        appoints.setVisibility(View.VISIBLE);
+
+    }
+
+
+
 }
+
+//eria99400@mylaurier.ca
+//abcdABCD1234$
