@@ -15,8 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 /**
  * This Activity setups up a view to act as the "Main activity" screen for the admin
@@ -25,6 +28,9 @@ public class AdminMainActivity extends AppCompatActivity {
     Button adminClassBtn;
     Button adminAppointmentBtn;
     Button adminGroupsBtn;
+    ArrayList<Class> fragments = new ArrayList<>();
+
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static String userID;
@@ -107,6 +113,12 @@ public class AdminMainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.admin_toolbar);
         setSupportActionBar(myToolbar);
+        fragments.add(AdminGroupFragment.class);
+        fragments.add(AppointmentFragment.class);
+
+        ImageView LeftArrow = findViewById(R.id.LeftArrow);
+        ImageView RightArrow = findViewById(R.id.RightArrow);
+
 
 
 //        Bundle extras=getIntent().getExtras();
@@ -114,17 +126,6 @@ public class AdminMainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager =getSupportFragmentManager();
 
-//        adminClassBtn=findViewById(R.id.admin_class_button);
-//        adminClassBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                fragmentManager.beginTransaction()
-//                        .replace(R.id.adminFragmentContainerView,AdminClassFragment.class,null)
-//                        .setReorderingAllowed(true)
-//                        .addToBackStack("tempBackStack")
-//                        .commit();
-//            }
-//        });
         adminGroupsBtn=findViewById(R.id.admin_groups_button);
         adminGroupsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +137,52 @@ public class AdminMainActivity extends AppCompatActivity {
                         .commit();
             }
         });
+        LeftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getTitle().equals("Admin Appointments"))
+                {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.adminFragmentContainerView,AdminGroupFragment.class,extras)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("tempBackStack")
+                            .commit();
+                }
+                else if (getTitle().equals("Groups"))
+                {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.adminFragmentContainerView,AdminAppointmentFragment.class,extras)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("tempBackStack")
+                            .commit();
+                }
+            }
+        });
+        RightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (getTitle().equals("Admin Appointments"))
+                {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.adminFragmentContainerView,AdminGroupFragment.class,extras)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("tempBackStack")
+                            .commit();
+                }
+                else if (getTitle().equals("Groups"))
+                {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.adminFragmentContainerView,AdminAppointmentFragment.class,extras)
+                            .setReorderingAllowed(true)
+                            .addToBackStack("tempBackStack")
+                            .commit();
+                }
+            }
+        });
+
+
+
+
         adminAppointmentBtn=findViewById(R.id.admin_schedule_button);
         adminAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override

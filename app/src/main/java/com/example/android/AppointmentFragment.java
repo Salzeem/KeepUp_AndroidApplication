@@ -55,7 +55,6 @@ public class AppointmentFragment extends Fragment {
     protected static int[] colorIcon = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
     private ViewAppointmentAdapter adapter;
     private final ArrayList<ArrayList<String>> StudentAppointment = new ArrayList<ArrayList<String>>();
-//    private Map<String,String> StudentAppointment = new HashMap<String,String>();
     private ArrayList<ArrayList<String>> appointments = new ArrayList<ArrayList<String>>();
 
     private ListView Appointmentlist;

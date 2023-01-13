@@ -6,17 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".CreateGroupFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/Theme.Material3.DayNight">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+
 
     >
 
 
     <TextView
         android:id="@+id/textView2"
+        android:textColor="@color/eggshell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -30,7 +33,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:orientation="vertical"
@@ -41,13 +44,13 @@
 
 
         <TextView
-            android:id="@+id/CourseSelectText"
+             android:id="@+id/CourseSelectText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select a course " />
 
         <Spinner
-            android:id="@+id/CourseSpinner"
+             android:id="@+id/CourseSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
@@ -55,7 +58,7 @@
 
 
         <TextView
-            android:id="@+id/textView4"
+             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -69,7 +72,7 @@
 
             <EditText
                 android:id="@+id/TextGroupName"
-                android:layout_width="match_parent"
+                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Group Name"
                 android:inputType="textPersonName"
@@ -79,7 +82,7 @@
 
         <TextView
             android:id="@+id/desc"
-            android:layout_width="match_parent"
+             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Provide a brief description of the group" />
@@ -88,13 +91,13 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:endIconMode="clear_text">
-
+            app:endIconMode="clear_text"
+ >
             <EditText
                 android:id="@+id/GroupDescInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="@integer/material_motion_duration_long_1"
+                 android:ems="@integer/material_motion_duration_long_1"
                 android:hint="group desc "
                 android:inputType="textMultiLine"
 
@@ -109,7 +112,7 @@
                 android:id="@+id/StudentList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                 android:minHeight="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/AddButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add member"
-                app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,8 +135,7 @@
             android:id="@+id/UsersAdd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/AddButton" />

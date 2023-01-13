@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,7 +35,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setAllowEnterTransitionOverlap(false);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         setTitle("KeepUp!");
 

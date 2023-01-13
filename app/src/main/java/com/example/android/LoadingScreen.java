@@ -2,11 +2,19 @@ package com.example.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.AutoTransition;
+import android.transition.Explode;
+import android.transition.Slide;
+import android.util.Log;
+import android.view.Window;
 import android.widget.ProgressBar;
+
+import java.util.logging.LoggingMXBean;
 
 /**
  * This Activity setups up a view to act as the "Loading" screen
@@ -28,6 +36,10 @@ public class LoadingScreen extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setExitTransition(new Slide());
+        getWindow().setEnterTransition(new Explode());
+        getWindow().setAllowEnterTransitionOverlap(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
         setTitle("KeepUp!");
@@ -35,20 +47,22 @@ public class LoadingScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Check if we're running on Android 5.0 or higher
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    // Apply activity transition
-                    startActivity(new Intent(LoadingScreen.this, LoginActivity.class));
 
-                } else {
-                    // Swap without transition
-                    startActivity(new Intent(LoadingScreen.this, LoginActivity.class));
+                begin();
 
-                }
+
 
             }
         }, 3000);
 
 
+    }
+
+    public void begin()
+    {
+        Intent TransitionToLogin = new Intent(LoadingScreen.this, LoginActivity.class);
+        startActivity(new Intent(LoadingScreen.this, LoginActivity.class));
+        startActivity(TransitionToLogin,
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 }

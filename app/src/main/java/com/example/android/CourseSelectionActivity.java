@@ -63,7 +63,6 @@ public class CourseSelectionActivity extends AppCompatActivity {
 
     TextView courseTV;
 
-    FirebaseFirestore fc = FirebaseFirestore.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String userID;

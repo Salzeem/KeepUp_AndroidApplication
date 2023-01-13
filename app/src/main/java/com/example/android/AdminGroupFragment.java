@@ -512,15 +512,7 @@ public class AdminGroupFragment extends Fragment {
 
         LayoutInflater inflater = this.getLayoutInflater();
         final View views = inflater.inflate(R.layout.groups_custom_dialog_box, null);
-        // EmailInstrucorBtn = views.findViewById(R.id.EmailInstructorBtn);
         StartChatBtn = views.findViewById(R.id.StartChat);
-     /*   EmailInstrucorBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EmailInstructor(view, positionitem);
-            }
-        });
-*/
         StartChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -561,16 +553,6 @@ public class AdminGroupFragment extends Fragment {
         StudentList = views.findViewById(R.id.RecyclerViewmembers);
         StudentList.setAdapter(addstudentadapter);
         StudentList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
-
-
- /*       for (int i =0; i < (group.getMembers().size()); i++)
-        {
-            switch_buttons[i]= views.findViewById(memberchip[i]);
-            switch_buttons[i].setVisibility(View.VISIBLE);
-            switch_buttons[i].setText(group.getMembers().get(i));
-
-        }*/
-
 
         GroupName.setText(group.getNameofGroup());
         GroupDesc.setText(group.getGroupDescription()) ;

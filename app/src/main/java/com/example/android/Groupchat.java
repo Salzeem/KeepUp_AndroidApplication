@@ -3,8 +3,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,6 +135,34 @@ public class Groupchat extends AppCompatActivity {
         name = intent.getStringExtra("name");
 
         GetInformation(groupId);
+
+
+        TextField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!TextField.getText().toString().equals(""))
+                {
+                    Send.setClickable(true);
+                    Send.setColorFilter(Color.BLUE);
+
+                }
+                else
+                {
+                    Send.setClickable(false);
+                    Send.setColorFilter(Color.GRAY);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
         Send.setOnClickListener(new View.OnClickListener() {

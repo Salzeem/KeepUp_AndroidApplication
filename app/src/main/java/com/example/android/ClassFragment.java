@@ -144,6 +144,8 @@ public class ClassFragment extends Fragment {
 
                 message.setText(Studentclass.get(position));
                 groupDescription.setText(StudentDesc.get(Studentclass.get(position)));
+
+
                 classIcon.setImageResource(R.drawable.class_icon);
                 classIcon.setColorFilter((colorIcon[(int) Math.floor(Math.random() * (colorIcon.length))]));
                 classIcon.setVisibility(View.INVISIBLE);
@@ -153,6 +155,13 @@ public class ClassFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         RemoveClass(view);
+                    }
+                });
+
+                cardGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
                     }
                 });
 
@@ -256,7 +265,7 @@ public class ClassFragment extends Fragment {
                                                     }
                                                 }
                                             });
-//                                    DisplayRegClasses(temp);
+//
                                 }
                             } else {
                                 Log.w(FRAGMENT_NAME, "Error getting documents.", task.getException());

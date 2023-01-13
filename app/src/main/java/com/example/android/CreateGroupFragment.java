@@ -35,12 +35,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -170,7 +167,6 @@ public class CreateGroupFragment extends Fragment {
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         CourseSpinner.setAdapter(adapter2);
 
-//        ProgressIndicator.setIndeterminate(false);
 
         StudentList.setAdapter(addstudentadapter);
         StudentList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -209,14 +205,13 @@ public class CreateGroupFragment extends Fragment {
                 memberIds.add("None");
                 students.add("None");
                 adapter.notifyDataSetChanged();
-                //Have to reset existing chipview data once user selects a diff item
-                boolean changed = false;
-                for (int j = 1; j<user.size(); j++)
-                {
-                    user.remove(j);
-                    changed = true;
-                }
-                if (changed) {
+                //Have to reset existing chipview data once user selects a diff item, except
+
+
+                if (user.size()>1 ) {
+                    String first_element = user.get(0);
+                    user.clear();
+                    user.add(first_element);
                     addstudentadapter.notifyDataSetChanged();
                 }
 
@@ -420,7 +415,6 @@ public class CreateGroupFragment extends Fragment {
         group.put("memberEmails", finalmemberEmails);
         group.put("memberIds", finalmemberIds);
         group.put("messages", messages);
-        //  ProgressIndicator.setProgressCompat(50, true);
 
 
         db.collection("groups")

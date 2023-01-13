@@ -53,6 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -66,6 +67,26 @@
             android:name="com.example.android.AdminGroupFragment"
             android:layout_width="match_parent"
             android:layout_height="647dp" />
+
+
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/LeftArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutAdmin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_toolbar"
+        app:srcCompat="@drawable/left_arrow" />
+
+    <ImageView
+        android:id="@+id/RightArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotation="180"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutAdmin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_toolbar"
+        app:srcCompat="@drawable/left_arrow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,7 +57,7 @@
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/Everything/School/School Fall 2022/CP470/Final Project Documentation" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../../Everything/School/School Fall 2022/CP470/Final Project Documentation" />
     <option name="OPTION_SCOPE" value="private" />
     <option name="OTHER_OPTIONS" value="-sourcepath /Users/carsonaziz/Library/Android/sdk/platforms/android-32/android.jar" />
   </component>
@@ -66,5 +66,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.18931159420289856" />
+      </ProjectState>
+    </option>
   </component>
 </project>
