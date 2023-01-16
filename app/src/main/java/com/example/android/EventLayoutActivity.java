@@ -33,7 +33,7 @@ import java.util.Map;
  * This Activity setups up a view to act as the "Event Layout" screen
  */
 public class EventLayoutActivity extends AppCompatActivity {
-    protected String Activity_Name="EventLayoutActivity";
+    protected String ActivityNAME="EventLayoutActivity";
     private EditText eventNameET;
     private EditText eventDescET;
     private TextView eventDateTV, eventTimeTV, eventCourseTV;
@@ -51,13 +51,15 @@ public class EventLayoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(ActivityNAME,String.valueOf(time));
+
         setContentView(R.layout.activity_event_layout);
 
         setTitle("Book Appointment");
         Bundle extras=getIntent().getExtras();
 
         tempTime=extras.getString("time");
-        Log.i(Activity_Name,tempTime);
+        Log.i(ActivityNAME,tempTime);
         time=LocalTime.parse(tempTime,DateTimeFormatter.ISO_TIME);
         eventCourse=extras.getString("course");
 
@@ -66,7 +68,6 @@ public class EventLayoutActivity extends AppCompatActivity {
         eventCourseTV=findViewById(R.id.eventCourseTV);
         eventDateTV = findViewById(R.id.eventDateTV);
         eventTimeTV = findViewById(R.id.eventTimeTV);
-        Log.i(Activity_Name,String.valueOf(time));
         eventCourseTV.setText("Course: "+eventCourse);
         eventDateTV.setText("Date: " + CalendarUtils.formattedDate(CalendarUtils.selectedDate));
         eventTimeTV.setText("Time: " + CalendarUtils.formattedTime(time));
@@ -110,45 +111,22 @@ public class EventLayoutActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(Activity_Name, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        Log.d(ActivityNAME, "DocumentSnapshot written with ID: " + documentReference.getId());
                         currAppointment = documentReference.getId();
                         DocumentReference userRef = db.collection("user").document(MainActivity.UserId);
                         userRef.update("appointments", FieldValue.arrayUnion(currAppointment));
-//                        db.collection("administrators").document(prof.get(0))
-//                                .update(
-//                                        "appointments.upcoming", currAppointment
-//                                );
-//                        DocumentReference courseRef = db.collection("courses").document("qXxeI8ZxZ8ZcYVAWCbXI"); //eventCourse
-//                        courseRef.update("appointments", FieldValue.arrayUnion(currAppointment));
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(Activity_Name, "Error adding document", e);
+                        Log.w(ActivityNAME, "Error adding document", e);
                     }
                 });
 
-        Log.i("evenlayoutactivity list size",String.valueOf(Event.eventsList.size()));
+        Log.i(ActivityNAME,String.valueOf(Event.eventsList.size()));
         finish();
-
-        //        DocumentReference docRef = db.collection("courses").document();
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        prof = (ArrayList<String> ) document.get("administrators");
-//                        Log.d(Activity_Name, "DocumentSnapshot data: " + prof.get(0));
-//                    } else {
-//                        Log.d(Activity_Name, "No such document");
-//                    }
-//                } else {
-//                    Log.d(Activity_Name, "get failed with ", task.getException());
-//                }
-//            }
-//        });
 
     }
 

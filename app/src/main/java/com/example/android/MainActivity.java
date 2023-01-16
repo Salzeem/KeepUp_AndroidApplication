@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -121,59 +124,66 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Bundle extras=getIntent().getExtras();
         UserId= extras.getString("userID");
-        appointmentButton=findViewById(R.id.schedule_button);
-        classButton=findViewById(R.id.class_button);
-        groupButton=findViewById(R.id.groups_button);
-        classButton.setBackgroundColor(Color.GREEN);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-
-
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         FragmentManager fragmentManager =getSupportFragmentManager();
 
-        classButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                classButton.setBackgroundColor(Color.GREEN);
-                groupButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                appointmentButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
 
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView,ClassFragment.class,extras)
-                        .addToBackStack("tempBackStack")
-                        .commit();
+        nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.appointments:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView,AppointmentFragment.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("tempBackStack")
+                                .setCustomAnimations(
+                                        R.anim.slidein,  // enter
+                                        R.anim.fadeout,  // exit
+                                        R.anim.fadein,   // popEnter
+                                        R.anim.slideout  // popExit
+                                )
+                                .commit();
+                        return true;
+
+                    case R.id.classes:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView,ClassFragment.class,extras)
+                                .addToBackStack("tempBackStack")
+                                .setCustomAnimations(
+                                        R.anim.slidein,  // enter
+                                        R.anim.fadeout,  // exit
+                                        R.anim.fadein,   // popEnter
+                                        R.anim.slideout  // popExit
+                                )
+                                .commit();
+                        return true;
+                    case R.id.groups:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView,GroupFragment.class,extras)
+                                .setReorderingAllowed(true)
+                                .addToBackStack("tempBackStack")
+                                .setCustomAnimations(
+                                        R.anim.slidein,  // enter
+                                        R.anim.fadeout,  // exit
+                                        R.anim.fadein,   // popEnter
+                                        R.anim.slideout  // popExit
+                                )
+                                .commit();
+                        return true;
+                    default:
+                        return true;
+
+
+
+                }
             }
         });
-        classButton.performClick();
-        appointmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                classButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                groupButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                appointmentButton.setBackgroundColor(Color.GREEN);
 
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView,AppointmentFragment.class,null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("tempBackStack")
-                        .commit();
-            }
-        });
-
-        groupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                classButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                groupButton.setBackgroundColor(Color.GREEN);
-                appointmentButton.setBackgroundColor(getResources().getColor(R.color.purple_500));
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView,GroupFragment.class,extras)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("tempBackStack")
-                        .commit();
-            }
-        });
 
     }
 

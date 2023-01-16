@@ -146,7 +146,6 @@ public class BookAppointmentFragment extends Fragment {
                                     app.add(course);
                                     app.add(date);
                                     app.add(time);
-//                                    app.add(title);
                                     bookedApps.add(app);
                                 }
                             }

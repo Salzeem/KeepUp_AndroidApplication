@@ -61,9 +61,6 @@ public class CreateGroupFragment extends Fragment {
     protected EditText GroupDescInput;
 
     protected static HashMap removeditems =new HashMap<String, String>();
-    Button Class  ;
-    Button Group ;
-    Button appoints ;
 
     protected static ArrayList<String> memberIds = new ArrayList<>();
 
@@ -107,16 +104,7 @@ public class CreateGroupFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    private class MembersInfo
-    {
-        String name;
-        String id;
-        public MembersInfo(String name, String id )
-        {
-            this.name = name;
-            this.id = id;
-        }
-    }
+
 
     /**
      * Calls the super's {@code onCreate()} and stores the fragments parameters in fields
@@ -170,12 +158,10 @@ public class CreateGroupFragment extends Fragment {
 
         StudentList.setAdapter(addstudentadapter);
         StudentList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.HORIZONTAL, false));
-        Class = getActivity().findViewById(R.id.class_button);
-        Group = getActivity().findViewById(R.id.groups_button);
-        appoints = getActivity().findViewById(R.id.schedule_button);
-        Class.setVisibility(View.INVISIBLE);
+
+/*        Class.setVisibility(View.INVISIBLE);
         Group.setVisibility(View.INVISIBLE);
-        appoints.setVisibility(View.INVISIBLE);
+        appoints.setVisibility(View.INVISIBLE);*/
 
 
 
@@ -483,6 +469,7 @@ public class CreateGroupFragment extends Fragment {
      * Calls the super's {@code onStop()} and clears {@link CreateGroupFragment#user} and
      * {@link CreateGroupFragment#students}
      */
+/*
     @Override
     public void onStop() {
         super.onStop();
@@ -494,9 +481,10 @@ public class CreateGroupFragment extends Fragment {
 
         // courses.clear();
     }
+*/
 
 
-    public void onPause()
+/*    public void onPause()
     {
 
         super.onPause();
@@ -504,7 +492,7 @@ public class CreateGroupFragment extends Fragment {
         Group.setVisibility(View.VISIBLE);
         appoints.setVisibility(View.VISIBLE);
 
-    }
+    }*/
 
 
 

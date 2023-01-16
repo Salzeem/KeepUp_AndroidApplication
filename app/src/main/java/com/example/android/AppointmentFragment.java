@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -209,6 +210,9 @@ public class AppointmentFragment extends Fragment {
         ImageView refreshBtn=test.findViewById(R.id.refresh);
         refreshBtn.setVisibility(View.INVISIBLE);
 
+        TransitionInflater inflaters = TransitionInflater.from(requireContext());
+        setEnterTransition(inflaters.inflateTransition(R.transition.slide));
+
         CardView btn=test.findViewById(R.id.Banner);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,7 +275,6 @@ public class AppointmentFragment extends Fragment {
                                                     }
                                                 }
                                             });
-//                                    DisplayRegClasses(temp);
                                 }
                             } else {
                                 Log.w(FRAGMENT_NAME, "Error getting documents.", task.getException());

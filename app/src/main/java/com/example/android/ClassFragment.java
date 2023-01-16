@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -218,7 +219,8 @@ public class ClassFragment extends Fragment {
         nogroupinfo.setText(R.string.noClassAdded);
         nogroupinfo.setVisibility(View.INVISIBLE);
         Classlist.setVisibility(View.VISIBLE);
-
+        TransitionInflater inflaters = TransitionInflater.from(requireContext());
+        setEnterTransition(inflaters.inflateTransition(R.transition.slide));
         CardView btn=test.findViewById(R.id.Banner);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -254,6 +255,8 @@ public class GroupFragment extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        TransitionInflater inflaters = TransitionInflater.from(requireContext());
+        setEnterTransition(inflaters.inflateTransition(R.transition.slide));
         View test=inflater.inflate(R.layout.fragment_group, container, false);
         if (user != null) {
             String title="Groups";

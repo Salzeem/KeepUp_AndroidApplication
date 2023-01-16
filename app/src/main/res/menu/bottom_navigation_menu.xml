@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/appointments"
+        android:enabled="true"
+        android:icon="@drawable/appointment_icon"
+        android:title="Appointments"/>
+    <item
+        android:id="@+id/groups"
+        android:enabled="true"
+        android:icon="@drawable/groups"
+        android:title="Groups"/>
+    <item
+        android:id="@+id/classes"
+        android:enabled="true"
+        android:icon="@drawable/class_icon"
+        android:title="Classes"/>
+
+
+</menu>
