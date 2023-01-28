@@ -15,27 +15,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.chip.Chip;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -210,18 +206,16 @@ public class ClassFragment extends Fragment {
         View test=inflater.inflate(R.layout.fragment_group, container, false);
         Classlist= test.findViewById(R.id.GroupinformationList);
         TextView nogroupinfo = test.findViewById(R.id.NoGroupinfo);
-        TextView addclassBtn= test.findViewById(R.id.BannerText);
-        ImageView refreshBtn=test.findViewById(R.id.refresh);
-        refreshBtn.setVisibility(View.INVISIBLE);
-        addclassBtn.setText("Add a class");
+   /*     TextView addclassBtn= test.findViewById(R.id.Banner);
+        addclassBtn.setText("Add a class");*/
         adapter = new ViewClassAdpater(this.getContext(), 0);
         Classlist.setAdapter(adapter);
         nogroupinfo.setText(R.string.noClassAdded);
         nogroupinfo.setVisibility(View.INVISIBLE);
         Classlist.setVisibility(View.VISIBLE);
         TransitionInflater inflaters = TransitionInflater.from(requireContext());
-        setEnterTransition(inflaters.inflateTransition(R.transition.slide));
-        CardView btn=test.findViewById(R.id.Banner);
+        setEnterTransition(inflaters.inflateTransition(R.transition.slide_right));
+        FloatingActionButton btn=test.findViewById(R.id.Banner);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

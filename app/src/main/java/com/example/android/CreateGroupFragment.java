@@ -469,30 +469,7 @@ public class CreateGroupFragment extends Fragment {
      * Calls the super's {@code onStop()} and clears {@link CreateGroupFragment#user} and
      * {@link CreateGroupFragment#students}
      */
-/*
-    @Override
-    public void onStop() {
-        super.onStop();
-        user.clear();
-        students.clear();
-        Class.setVisibility(View.VISIBLE);
-        Group.setVisibility(View.VISIBLE);
-        appoints.setVisibility(View.VISIBLE);
 
-        // courses.clear();
-    }
-*/
-
-
-/*    public void onPause()
-    {
-
-        super.onPause();
-        Class.setVisibility(View.VISIBLE);
-        Group.setVisibility(View.VISIBLE);
-        appoints.setVisibility(View.VISIBLE);
-
-    }*/
 
 
 

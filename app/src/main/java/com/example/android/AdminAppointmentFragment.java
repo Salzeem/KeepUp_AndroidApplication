@@ -223,25 +223,25 @@ public class AdminAppointmentFragment extends Fragment {
         Appointmentlist = test.findViewById(R.id.GroupinformationList);
         noAppinfo = test.findViewById(R.id.NoGroupinfo);
 
-        TextView addAppBtn = test.findViewById(R.id.BannerText);
-        addAppBtn.setText("Set Available Times");
-        addAppBtn.setVisibility(View.INVISIBLE);
+        //TextView addAppBtn = test.findViewById(R.id.BannerText);
+      //  addAppBtn.setText("Set Available Times");
+        //addAppBtn.setVisibility(View.INVISIBLE);
 
-        addAppBtn.setOnClickListener(new View.OnClickListener() {
+        /*addAppBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getActivity(),AdminAppTimesActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         adapter = new AdminAppointmentFragment.ViewAppointmentAdapter(this.getContext(), 0);
         Appointmentlist.setAdapter(adapter);
         noAppinfo.setText(R.string.noAppAdded);
         noAppinfo.setVisibility(View.VISIBLE);
         Appointmentlist.setVisibility(View.INVISIBLE);
-        ImageView refreshBtn = test.findViewById(R.id.refresh);
-        refreshBtn.setVisibility(View.INVISIBLE);
+        //ImageView refreshBtn = test.findViewById(R.id.refresh);
+       // refreshBtn.setVisibility(View.INVISIBLE);
 
         CardView btn = test.findViewById(R.id.Banner);
         btn.setVisibility(View.INVISIBLE);

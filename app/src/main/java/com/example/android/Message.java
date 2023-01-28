@@ -1,14 +1,15 @@
 package com.example.android;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 public class Message {
 
     String message;
-    Date date;
+    LocalTime date;
     String sender;
 
-    public Message(String message, Date date, String sender)
+    public Message(String message, LocalTime date, String sender)
     {
 
         this.message  = message;
@@ -22,7 +23,7 @@ public class Message {
         return this.message;
     }
 
-    public Date getDate()
+    public LocalTime getDate()
     {
         return this.date;
     }
@@ -39,7 +40,7 @@ public class Message {
         return true;
     }
 
-    public boolean setDate(Date date)
+    public boolean setDate(LocalTime date)
     {
         this.date = date;
         return true;

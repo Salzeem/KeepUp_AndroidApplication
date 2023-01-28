@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,6 +26,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -42,6 +45,7 @@ public class Groupchat extends AppCompatActivity {
     ChatAdapter messageAdapter;
     String name;
     String GroupTitle;
+
 
 
     /**
@@ -85,7 +89,6 @@ public class Groupchat extends AppCompatActivity {
          * @return View for message at {@code position}
          */
         public View getView(int position, View convertView, ViewGroup parent) {
-
             View result;
             LayoutInflater inflater = Groupchat.this.getLayoutInflater();
             String[] messages = getItem(position).split(" ", 3);
@@ -96,20 +99,32 @@ public class Groupchat extends AppCompatActivity {
             String messageString = temp[0];
 
             String nameofuser = messages[0] + " "  + messages[1];
+            MediaPlayer notification;
 
             if (nameofuser.compareTo(name) != 0) {
                 result = inflater.inflate(R.layout.message_from_user, null);
                 TextView msg = result.findViewById(R.id.message);
                 msg.setText(messageString);
+                notification = MediaPlayer.create(getContext(), R.raw.notimsg );
+                LocalTime curr =LocalTime.of(LocalTime.now().getHour(),LocalTime.now().getMinute());
+                String current_time =""+curr;
+                if (current_time.equals(temp[1])) {
+                    notification.start();
+                }
 
             } else {
                 result = inflater.inflate(R.layout.message_from_person, null);
                 TextView msg = result.findViewById(R.id.message);
                 msg.setText(messageString);
+
             }
 
-            TextView name = (TextView) result.findViewById(R.id.nameMessage);
-            name.setText(user); // get the string at position
+            TextView name = (TextView) result.findViewById(R.id.Username);
+            TextView time = (TextView) result.findViewById(R.id.Time);
+            //name.setText(messages[0] +" " + messages[1]); // get the string at position
+            time.setText(temp[1]);
+
+
             return result;
         }
 
@@ -133,6 +148,7 @@ public class Groupchat extends AppCompatActivity {
 
         String groupId = intent.getStringExtra("groupid");
         name = intent.getStringExtra("name");
+        Log.i(ACTIVITY_NAME, name);
 
         GetInformation(groupId);
 
@@ -171,8 +187,6 @@ public class Groupchat extends AppCompatActivity {
                 String message = TextField.getText().toString();
                 LocalTime now=LocalTime.of(LocalTime.now().getHour(),LocalTime.now().getMinute());
                 String parse = name + " " + message + "@"+now;
-                messageAdapter.notifyDataSetChanged();
-                Texts.smoothScrollToPosition(messages.size()-1);
                 WriteMessagetoDatabase(messages.size(), groupId, parse);
 
             }
@@ -188,8 +202,6 @@ public class Groupchat extends AppCompatActivity {
      * @param name unused
      */
     public void WriteMessagetoDatabase(int position, String groupid, String name) {
-
-        LocalTime now= LocalTime.now();
         db.collection("groups")
                 .document(groupid)
                 .update("messages", FieldValue.arrayUnion(name));
@@ -220,8 +232,17 @@ public class Groupchat extends AppCompatActivity {
 
                     GroupTitle=(String) snapshot.get("name");
                     setTitle(GroupTitle);
-                    messages = (ArrayList<String>) snapshot.get("messages");
+                    ArrayList<String> latestsnapshot = (ArrayList<String>) snapshot.get("messages");
+                    if (messages.size()- latestsnapshot.size() ==1 ) {
+                        messages.add(latestsnapshot.get(latestsnapshot.size() - 1));
+                    }
+                    else
+                    {
+                        messages = latestsnapshot;
+                    }
                     messageAdapter.notifyDataSetChanged();
+                    Texts.smoothScrollToPosition(messages.size()-1);
+
                 } else {
                     Log.d(ACTIVITY_NAME, "Current data: null");
                 }
@@ -233,4 +254,3 @@ public class Groupchat extends AppCompatActivity {
 
 
 }
-

@@ -36,11 +36,12 @@ public class LoadingScreen extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setExitTransition(new Slide());
         getWindow().setEnterTransition(new Explode());
         getWindow().setAllowEnterTransitionOverlap(false);
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
         setTitle("KeepUp!");
         Handler handler = new Handler();

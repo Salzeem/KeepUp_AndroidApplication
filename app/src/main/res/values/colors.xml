@@ -9,5 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="eggshell">#F0EAD6</color>
     <color name="green"> #00FF00</color>
+    <color name="yellow">#F4E136</color>
+    <color name="grey">#808080</color>
+    <color name="transparent">#ffffff00</color>
 
 </resources>

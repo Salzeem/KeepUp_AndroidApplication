@@ -2,38 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/GroupPage"
+    android:id="@+id/LisPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="30dp"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".GroupFragment">
 
 
 
 
+    <androidx.recyclerview.widget.RecyclerView
 
-
-    <TextView
-        android:id="@+id/NoGroupinfo"
-        android:layout_width="match_parent"
-        android:layout_height="531dp"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/GroupinformationList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-
-        android:id="@+id/GroupinformationList"
-        android:layout_width="match_parent"
-        android:layout_height="531dp"
+        android:id="@+id/GroupinformationList2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
         android:clickable="true"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10.0sp"
 
+        android:dividerHeight="10.0sp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,19 +29,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Banner"
+        android:id="@+id/Banner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
         android:clickable="true"
+
+        android:layout_gravity="right"
         android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GroupinformationList" />
+        tools:layout_editor_absoluteX="278dp"
+        tools:layout_editor_absoluteY="696dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

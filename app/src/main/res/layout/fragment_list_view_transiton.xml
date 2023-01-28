@@ -1,0 +1,223 @@
+
+
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/BAr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="100dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/TransitionCardDesign"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Title, secondary and supporting text -->
+
+                    <TextView
+                        android:id="@+id/GroupNameLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="The best group"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                    <TextView
+                        android:id="@+id/coursename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="CP470"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
+
+                    <TextView
+                        android:id="@+id/GroupDesclabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:ellipsize="end"
+                        android:maxLines="5"
+                        android:text="Group Description"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?android:attr/textColorSecondary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="MEMBERS"
+                        android:textSize="15sp" />
+
+                    <GridLayout
+                        android:id="@+id/Bar"
+                        android:layout_marginLeft="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:orientation="horizontal"
+                        android:rowCount="2">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/student1"
+                            android:layout_width="152dp"
+                            android:layout_height="135dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/student1"
+                            android:visibility="invisible"
+
+                            />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/student2"
+                            android:layout_width="152dp"
+                            android:layout_height="135dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/student2"
+                            android:visibility="invisible"
+
+
+                            />
+
+
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/captionstudent1"
+                            android:layout_width="151dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+
+                            android:visibility="invisible"
+                            />
+
+                        <TextView
+                            android:id="@+id/captionstudent2"
+                            android:layout_width="150dp"
+                            android:visibility="invisible"
+
+                            android:layout_height="35dp"
+                            android:gravity="center"
+                            android:text="Amma-Zaynab" />
+                    </LinearLayout>
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginLeft="40dp"
+                        android:orientation="horizontal"
+                        android:rowCount="2">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/student3"
+                            android:layout_width="152dp"
+                            android:layout_height="135dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:visibility="invisible"
+
+                            android:src="@drawable/student1"
+
+                            />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/student4"
+                            android:layout_width="152dp"
+                            android:layout_height="135dp"
+                            android:adjustViewBounds="true"
+                            android:visibility="invisible"
+
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/student2"
+
+
+                            />
+
+
+                    </GridLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginBottom="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/captionstudent3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:visibility="invisible"
+
+                            android:gravity="center"
+                            android:layout_marginLeft="50dp"
+
+
+                             />
+
+                        <TextView
+                            android:id="@+id/captionstudent4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="80dp"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/bottomAppBar"
+                style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom"
+                app:menu="@menu/bottom_app_bar" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_anchor="@id/bottomAppBar"
+                app:srcCompat="@drawable/chat_icon" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+

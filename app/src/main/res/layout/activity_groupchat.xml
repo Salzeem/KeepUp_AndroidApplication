@@ -4,49 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="20dp"
-
     >
-
 
     <ListView
         android:id="@+id/ListArray"
         android:layout_width="match_parent"
-        android:layout_height="664dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/MessageBox"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="30dp"
+        android:divider="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/MsgBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+ />
 
-        android:id="@+id/MessageBox"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/MsgBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardBackgroundColor="#00FFFFFF"
+        app:cardCornerRadius="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/purple_200"
+        app:strokeWidth="1dp">
 
-        <EditText
-            android:id="@+id/EnterMsg"
-            android:layout_width="330dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/SendButton"
-            android:layout_width="58dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/send"
-            android:text="Send"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/EnterMsg"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/EnterMsg"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:endIconMode="clear_text"
+
+                app:layout_constraintWidth_percent="0.8"
+
+
+                />
+
+
+            <ImageView
+                android:id="@+id/SendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/send"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/EnterMsg" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

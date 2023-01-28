@@ -37,9 +37,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     protected static final String ACTIVITY_NAME="MainActivity";
     public static String UserId;
-    Button classButton;
-    Button groupButton;
-    Button appointmentButton;
+
 
     /**
      * Inflates {@link R.menu#menu_main} with {@code menu}
@@ -50,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
-     // Might need to change, this actually loads the first fragment and pases the Bundle info
-
         return true;
+    }
+
+    public  String getUserId() {
+        return UserId;
     }
 
     /**
@@ -64,13 +64,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-//            case R.id.action_settings:
-//                return true;
             case R.id.help:
                 showHelp();
                 return true;
             case R.id.Signout:
                 SignUserOut();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void SignUserOut() {
         FirebaseAuth.getInstance().signOut();
-        Toast.makeText(this, "Signed Out! ", Toast.LENGTH_LONG);
+        finish();
     }
 
     public static String title="Home";
@@ -118,9 +117,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(title);
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        }
         setContentView(R.layout.activity_main);
         Bundle extras=getIntent().getExtras();
         UserId= extras.getString("userID");
@@ -129,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         FragmentManager fragmentManager =getSupportFragmentManager();
-
-
         nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -140,39 +134,21 @@ public class MainActivity extends AppCompatActivity {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainerView,AppointmentFragment.class,null)
                                 .setReorderingAllowed(true)
-                                .addToBackStack("tempBackStack")
-                                .setCustomAnimations(
-                                        R.anim.slidein,  // enter
-                                        R.anim.fadeout,  // exit
-                                        R.anim.fadein,   // popEnter
-                                        R.anim.slideout  // popExit
-                                )
+                                .addToBackStack(null)
                                 .commit();
                         return true;
 
                     case R.id.classes:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainerView,ClassFragment.class,extras)
-                                .addToBackStack("tempBackStack")
-                                .setCustomAnimations(
-                                        R.anim.slidein,  // enter
-                                        R.anim.fadeout,  // exit
-                                        R.anim.fadein,   // popEnter
-                                        R.anim.slideout  // popExit
-                                )
+                                .addToBackStack(null)
                                 .commit();
                         return true;
                     case R.id.groups:
                         fragmentManager.beginTransaction()
                                 .replace(R.id.fragmentContainerView,GroupFragment.class,extras)
                                 .setReorderingAllowed(true)
-                                .addToBackStack("tempBackStack")
-                                .setCustomAnimations(
-                                        R.anim.slidein,  // enter
-                                        R.anim.fadeout,  // exit
-                                        R.anim.fadein,   // popEnter
-                                        R.anim.slideout  // popExit
-                                )
+                                .addToBackStack(null)
                                 .commit();
                         return true;
                     default:
@@ -194,5 +170,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
+
 }

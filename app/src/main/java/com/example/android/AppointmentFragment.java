@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -38,8 +38,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -200,20 +198,22 @@ public class AppointmentFragment extends Fragment {
         View test=inflater.inflate(R.layout.fragment_group, container, false);
         Appointmentlist= test.findViewById(R.id.GroupinformationList);
         noAppinfo = test.findViewById(R.id.NoGroupinfo);
-        TextView addAppBtn= test.findViewById(R.id.BannerText);
-        addAppBtn.setText("Book an Appointment");
+       // TextView addAppBtn= test.findViewById(R.id.BannerText);
+       // addAppBtn.setText("Book an Appointment");
         adapter = new AppointmentFragment.ViewAppointmentAdapter(this.getContext(), 0);
         Appointmentlist.setAdapter(adapter);
         noAppinfo.setText(R.string.noAppAdded);
         noAppinfo.setVisibility(View.VISIBLE);
         Appointmentlist.setVisibility(View.INVISIBLE);
-        ImageView refreshBtn=test.findViewById(R.id.refresh);
-        refreshBtn.setVisibility(View.INVISIBLE);
+        //ImageView refreshBtn=test.findViewById(R.id.refresh);
+        //refreshBtn.setVisibility(View.INVISIBLE);
 
-        TransitionInflater inflaters = TransitionInflater.from(requireContext());
-        setEnterTransition(inflaters.inflateTransition(R.transition.slide));
+        TransitionInflater inflators = TransitionInflater.from(requireContext());
 
-        CardView btn=test.findViewById(R.id.Banner);
+        setEnterTransition(inflators.inflateTransition(R.transition.slide_right));
+        //setExitTransition(inflators.inflateTransition(R.transition.slide_left));
+
+        FloatingActionButton btn=test.findViewById(R.id.Banner);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,7 +236,6 @@ public class AppointmentFragment extends Fragment {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     ArrayList<String> temp=(ArrayList<String>) document.get("appointments");
                                     ArrayList<ArrayList<String>> temp2=new ArrayList<ArrayList<String>>();
-
                                     db.collection("appointment")
                                             .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                                 @Override
