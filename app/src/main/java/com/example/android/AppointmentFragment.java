@@ -3,6 +3,7 @@ package com.example.android;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class AppointmentFragment extends Fragment {
 
     private ListView Appointmentlist;
     TextView noAppinfo;
+    ImageView    nogrpinfo;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -198,21 +200,17 @@ public class AppointmentFragment extends Fragment {
         View test=inflater.inflate(R.layout.fragment_group, container, false);
         Appointmentlist= test.findViewById(R.id.GroupinformationList);
         noAppinfo = test.findViewById(R.id.NoGroupinfo);
-       // TextView addAppBtn= test.findViewById(R.id.BannerText);
-       // addAppBtn.setText("Book an Appointment");
+        nogrpinfo = test.findViewById(R.id.NoGroupinf);
         adapter = new AppointmentFragment.ViewAppointmentAdapter(this.getContext(), 0);
         Appointmentlist.setAdapter(adapter);
         noAppinfo.setText(R.string.noAppAdded);
         noAppinfo.setVisibility(View.VISIBLE);
+        nogrpinfo.setVisibility(View.VISIBLE);
         Appointmentlist.setVisibility(View.INVISIBLE);
-        //ImageView refreshBtn=test.findViewById(R.id.refresh);
-        //refreshBtn.setVisibility(View.INVISIBLE);
 
         TransitionInflater inflators = TransitionInflater.from(requireContext());
 
         setEnterTransition(inflators.inflateTransition(R.transition.slide_right));
-        //setExitTransition(inflators.inflateTransition(R.transition.slide_left));
-
         FloatingActionButton btn=test.findViewById(R.id.Banner);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,77 +282,6 @@ public class AppointmentFragment extends Fragment {
 
         return test;
 
-//        View inflatedLayout=inflater.inflate(R.layout.fragment_appointment, container, false);
-//
-//        db.collection("appointment")
-//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            bookedAppointments=new ArrayList<ArrayList<String>>();
-//                            for (DocumentChange document : task.getResult().getDocumentChanges()) {
-//                                String userKey = document.getDocument().getString("user");
-//                                String time = document.getDocument().getString("time");
-//                                String date=document.getDocument().getString("date");
-//                                String course=document.getDocument().getString("course");
-//                                String title=document.getDocument().getString("title");
-//                                String desc=document.getDocument().getString("desc");
-//
-//                                if(userKey.equals(MainActivity.UserId)){
-//                                    ArrayList<String> app=new ArrayList<String>();
-//                                    app.add(course);
-//                                    app.add(date);
-//                                    app.add(time);
-//                                    app.add(title);
-//                                    app.add(desc);
-//                                    bookedAppointments.add(app);
-//                                }
-//                            }
-//                            TextView appointmentsList = inflatedLayout.findViewById(R.id.appointmentList);
-//                            if (bookedAppointments.size()>0){
-//                                appointmentsList.setText("");
-//                                appointmentsList.append("List of all appointments: \n");
-//                                for(ArrayList<String> appointment:bookedAppointments){
-//                                    appointmentsList.append("Course: "+appointment.get(0)+", ");
-//                                    appointmentsList.append("Title: "+appointment.get(3)+", ");
-//                                    appointmentsList.append("Date: "+appointment.get(1)+", ");
-//                                    appointmentsList.append("Time: "+appointment.get(2)+"\n \n");
-//                                }
-//                            }else{
-//                                appointmentsList.setText("You do not have any booked appointments");
-//                            }
-//                            Button bookAppBtn=inflatedLayout.findViewById(R.id.bookAppointmentBtn);
-//                            bookAppBtn.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View view) {
-//                                    getActivity().getSupportFragmentManager().beginTransaction()
-//                                            .replace(R.id.fragmentContainerView,BookAppointmentFragment.class,null)
-//                                            .setReorderingAllowed(true)
-//                                            .addToBackStack("tempBackStack")
-//                                            .commit();
-//                                }
-//                            });
-//
-//                            Button cancelAppBtn = inflatedLayout.findViewById(R.id.cancelAppointmentBtn);
-//                            cancelAppBtn.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View view) {
-//                                    getActivity().getSupportFragmentManager().beginTransaction()
-//                                            .replace(R.id.fragmentContainerView,CancelAppointmentFragment.class,null)
-//                                            .setReorderingAllowed(true)
-//                                            .addToBackStack("tempBackStack")
-//                                            .commit();
-//                                }
-//                            });
-//
-//                        } else {
-//                            Log.d(FRAGMENT_NAME, "get failed with ", task.getException());
-//                        }
-//                    }
-//                });
-//
-//
-//        return inflatedLayout;
     }
 
     /**

@@ -7,16 +7,18 @@ import java.util.ArrayList;
  */
 public class Classes {
 
-    ArrayList<String> coursenames;
+    String coursenames;
+    String courseDesc;
 
     /**
      * Assigns {@code coursename} to {@link Classes#coursenames}
      * @param coursename {@link ArrayList} of {@link String} courses
      */
-    public Classes(ArrayList<String> coursename)
+    public Classes(String coursename, String courseDesc)
     {
 
         this.coursenames = coursename;
+        this.courseDesc = courseDesc;
 
     }
 
@@ -24,8 +26,14 @@ public class Classes {
      * Returns {@link Classes#coursenames}
      * @return {@link ArrayList} of {@link String} courses
      */
-    public ArrayList<String> getCoursename() {
+    public String getCoursename() {
         return coursenames;
     }
+
+
+    public String getCourseDesc() {
+        return courseDesc;
+    }
+
 
 }

@@ -163,9 +163,6 @@ public class RegisterActivity extends AppCompatActivity {
         }else if (TextUtils.isEmpty(password) || TextUtils.isEmpty(password2)) {
             Toast.makeText(RegisterActivity.this, R.string.reg_psswrd_error_message, Toast.LENGTH_SHORT).show();
             return false;
-//        }else if(!validatePassword(password)){
-//            Toast.makeText(RegisterActivity.this, R.string.regEx_psswrd_error_message, Toast.LENGTH_SHORT).show();
-//            return false;
         }else if (!password.equals(password2)){
             Toast.makeText(RegisterActivity.this, R.string.confirm_password_error_message,Toast.LENGTH_SHORT).show();
             return false;
@@ -173,40 +170,21 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
     }
-//    public String encryptHmacSha256(String key, String s) {
-//        byte[] message=s.getBytes(StandardCharsets.UTF_8);
-//        byte[] secretKey=key.getBytes(StandardCharsets.UTF_8);
-//        byte[] hmacSha256 = null;
-//        try {
-//            Mac mac = Mac.getInstance("HmacSHA256");
-//            SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey, "HmacSHA256");
-//            mac.init(secretKeySpec);
-//            hmacSha256 = mac.doFinal(message);
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to calculate hmac-sha256", e);
-//        }
-//        String encryption = new String(hmacSha256, StandardCharsets.UTF_8);
-//        return encryption;
-//    }
+/*   public String encryptHmacSha256(String key, String s) {
+    byte[] message=s.getBytes(StandardCharsets.UTF_8);
+      byte[] secretKey=key.getBytes(StandardCharsets.UTF_8);
+      byte[] hmacSha256 = null;
+      try {
+           Mac mac = Mac.getInstance("HmacSHA256");
+         SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey, "HmacSHA256");
+         mac.init(secretKeySpec);
+          hmacSha256 = mac.doFinal(message);
+      } catch (Exception e) {
+        throw new RuntimeException("Failed to calculate hmac-sha256", e);
+      }
+        String encryption = new String(hmacSha256, StandardCharsets.UTF_8);
+      return encryption;
+    }*/
 
-//    public void registerAction(View view){
-//        EditText firstNameET =findViewById(R.id.firstNametext);
-//        String firstName = firstNameET.getText().toString();
-//        EditText lastNameET = findViewById(R.id.lastNametext);
-//        String lastName = lastNameET.getText().toString();
-//        EditText emailET =  findViewById(R.id.emailtext);
-//        String email = emailET.getText().toString();
-//        EditText passwordET= findViewById(R.id.regPasswordtext);
-//        String password = passwordET.getText().toString();
-//        EditText confirmPasswordET = findViewById(R.id.passwordConfirmationtext);
-//        String confirmPassword = confirmPasswordET.getText().toString();
-//
-//        if (validateRegistration(firstName,lastName,email,password,confirmPassword)){
-//            //check if user exists already in database. if not, add data to database
-//            Intent intent=new Intent(RegisterActivity.this,RegisterActivity2.class);
-//            startActivity(intent);
-//        }
-//
-//    }
 
 }

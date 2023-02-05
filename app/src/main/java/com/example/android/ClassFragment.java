@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -45,17 +47,14 @@ import java.util.Map;
  * This fragment provides a view for interacting with student classes
  */
 public class ClassFragment extends Fragment {
+    private static ArrayList<Classes> StudentsClass = new ArrayList<Classes>();
     protected static final String FRAGMENT_NAME="ClassFragment";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    protected static int[] colorIcon = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
-    private  ViewClassAdpater adapter;
     private final ArrayList<String> Studentclass = new ArrayList<String>();
     private Map<String,String> StudentDesc = new HashMap<String,String>();
     private ArrayList<String> courses = new ArrayList<String>();
-
-    private ListView Classlist;
-    TextView noclassinfo;
-
+    private static RecyclerViewList card_adpater;
+    protected RecyclerView CardList;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String UserID  = "userID";
@@ -92,93 +91,15 @@ public class ClassFragment extends Fragment {
     }
 
     /**
-     * Subclass of {@link ArrayAdapter} for {@link R.layout#group_list_view}
-     */
-    private class ViewClassAdpater extends ArrayAdapter<String> {
-        /**
-         * Calls parent constructor
-         * @param context
-         * @param resource
-         */
-        public ViewClassAdpater(@NonNull Context context, int resource) {
-            super(context, resource);
-        }
-
-        /**
-         * Returns number of elements in {@link ClassFragment#Studentclass}
-         * @return {@link Integer} number of students in {@link ClassFragment#Studentclass}
-         */
-        public int getCount() {
-            return Studentclass.size();
-        }
-
-
-        /**
-         * Sets up view by inflating {@link R.layout#group_list_view} and setting
-         * the contents of the inflated view appropriately
-         * @param position
-         * @param convertView
-         * @param parent
-         * @return
-         */
-        public View getView(int position, View convertView, ViewGroup parent) {
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            LayoutInflater inflater = ClassFragment.this.getLayoutInflater();
-            View result = inflater.inflate(R.layout.group_list_view, null);
-            if (user != null) {
-                TextView message = result.findViewById(R.id.GroupNameLabel);
-                ImageView deleteButton = result.findViewById(R.id.RemoveGroup);
-                ImageView classIcon = result.findViewById(R.id.GroupIconDisplay);
-                TextView groupDescription = result.findViewById(R.id.GroupDescriptionLabel);
-                CardView cardGroup = result.findViewById(R.id.CardGroup);
-                ImageView EditIcon = result.findViewById(R.id.EditIcon);
-                EditIcon.setVisibility(View.INVISIBLE);
-
-
-                deleteButton.setTag(position);
-                classIcon.setTag(position);
-                cardGroup.setTag(position);
-
-                message.setText(Studentclass.get(position));
-                groupDescription.setText(StudentDesc.get(Studentclass.get(position)));
-
-
-                classIcon.setImageResource(R.drawable.class_icon);
-                classIcon.setColorFilter((colorIcon[(int) Math.floor(Math.random() * (colorIcon.length))]));
-                classIcon.setVisibility(View.INVISIBLE);
-
-                ImageView removeClassIV = result.findViewById(R.id.RemoveGroup);
-                removeClassIV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RemoveClass(view);
-                    }
-                });
-
-                cardGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
-
-            }
-            else
-            {
-                getActivity().finish();
-            }
-            return result;
-        }
-
-    }
-
-    /**
      * Stores fragment parameters in {@link ClassFragment#mParam1} and {@link ClassFragment#mParam2}
      * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TransitionInflater inflaters = TransitionInflater.from(requireContext());
+        setEnterTransition(inflaters.inflateTransition(R.transition.slide_right));
         if (getArguments() != null) {
             Log.i(FRAGMENT_NAME, "Bundle Received");
             mParam1 = getArguments().getString(UserID);
@@ -203,24 +124,19 @@ public class ClassFragment extends Fragment {
         String title="Classes";
         getActivity().setTitle(title);
         Studentclass.clear();
-        View test=inflater.inflate(R.layout.fragment_group, container, false);
-        Classlist= test.findViewById(R.id.GroupinformationList);
-        TextView nogroupinfo = test.findViewById(R.id.NoGroupinfo);
-   /*     TextView addclassBtn= test.findViewById(R.id.Banner);
-        addclassBtn.setText("Add a class");*/
-        adapter = new ViewClassAdpater(this.getContext(), 0);
-        Classlist.setAdapter(adapter);
-        nogroupinfo.setText(R.string.noClassAdded);
-        nogroupinfo.setVisibility(View.INVISIBLE);
-        Classlist.setVisibility(View.VISIBLE);
-        TransitionInflater inflaters = TransitionInflater.from(requireContext());
-        setEnterTransition(inflaters.inflateTransition(R.transition.slide_right));
-        FloatingActionButton btn=test.findViewById(R.id.Banner);
+        View test=inflater.inflate(R.layout.view_items, container, false);
+        CardList = test.findViewById(R.id.GroupinformationList2);
+
+        card_adpater = new RecyclerViewList(this.getContext(), StudentsClass, 1  );
+        CardList.setAdapter(card_adpater);
+        CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+
+        FloatingActionButton btn=test.findViewById(R.id.Banner2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmentContainerView,AddClassFragment.class,getArguments()) //TODO: Change to Add Class Fragment
+                        .replace(R.id.fragmentContainerView,AddClassFragment.class,getArguments())
                         .setReorderingAllowed(true)
                         .addToBackStack("tempBackStack")
                         .commit();
@@ -246,15 +162,16 @@ public class ClassFragment extends Fragment {
                                                         for (DocumentChange document : task.getResult().getDocumentChanges()) {
                                                             String courseName = document.getDocument().getString("code");
                                                             String courseSection = document.getDocument().getString("section");
-                                                            String courseTerm=document.getDocument().getString("term");
                                                             String courseDesc=document.getDocument().getString("description");
 
-                                                            if(temp.contains(courseName+" "+courseSection)){
+                                                            if(temp.contains(courseName+" "+courseSection) && !StudentDesc.containsKey(courseName + " " + courseSection)){
                                                                 Log.i(FRAGMENT_NAME,courseName+" "+courseSection);
                                                                 StudentDesc.put(courseName+" "+courseSection,courseDesc);
+                                                                Classes item = new Classes(courseName + courseSection,  courseDesc );
+                                                                StudentsClass.add(item);
                                                             }
                                                         }
-                                                        DisplayRegClasses(temp);
+                                                        card_adpater.notifyDataSetChanged();
 
                                                     } else {
                                                         Log.w(FRAGMENT_NAME, "Error getting documents or no changes yet.", task.getException());
@@ -273,27 +190,12 @@ public class ClassFragment extends Fragment {
         return test;
     }
 
-    /**
-     * Updates {@link ClassFragment#Studentclass} with courses from {@code studentClasses} and updates
-     * view
-     * @param studentClasses {@link ArrayList} of classes
-     */
-    public void DisplayRegClasses(ArrayList<String> studentClasses )
-    {
-
-        for (String course : studentClasses)
-        {
-            Studentclass.add(course);
-        }
-        Log.i(FRAGMENT_NAME, "Courses: " + Studentclass.size());
-        adapter.notifyDataSetChanged();
-    }
 
 
     /**
      * Removes selected class from {@link ClassFragment#Studentclass} and updates the view
      * @param view
-     */
+     *//*
     public void RemoveClass(View view )
     {
         int positionitemToDelete = (int) view.getTag();
@@ -325,17 +227,28 @@ public class ClassFragment extends Fragment {
         dialog.show();
     }
 
-
-    /**
+*/
+/*    *//**
      * Deletes course from database given {@code coursename} and {@code userID}
      * @param coursename
      * @param userID
-     */
+     *//*
     public void deletefromdatabase(String coursename, String userID )
     {
         DocumentReference groupsRef = db.collection("user").document(userID);
         groupsRef.update("courses", FieldValue.arrayRemove(coursename));
 
+    }*/
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        StudentsClass.clear();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        StudentsClass.clear();
+    }
 }

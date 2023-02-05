@@ -194,7 +194,6 @@ public class ListView_transiton extends Fragment {
         images.add(Fragment_transition_view.findViewById(R.id.student2));
         images.add(Fragment_transition_view.findViewById(R.id.student3));
         images.add(Fragment_transition_view.findViewById(R.id.student4));
-
         names.add(Fragment_transition_view.findViewById(R.id.captionstudent1));
         names.add(Fragment_transition_view.findViewById(R.id.captionstudent2));
         names.add(Fragment_transition_view.findViewById(R.id.captionstudent3));
@@ -296,6 +295,11 @@ public void RemoveGroup()
         groupsRef.update("memberIds", FieldValue.arrayRemove(userID));
     }
 
+    /**
+     * Enables the user to edit their information, either about the group or description of the group
+     * OnClick Handler of the green edit pencil icon gets called by this
+     *
+     */
     public void EditGroupDialog()
     {
         AlertDialog.Builder customDialog;
@@ -340,6 +344,15 @@ public void RemoveGroup()
         dialog.show();
 
     }
+
+    /**
+     * Gets called to update the database information once user changes either the group name or the group Description
+     * @param id : The group id key of the new group instance
+     * @param groupname : Name of the new group
+     * @param groupdescription : Description of the group
+     * @return true: If data has been succefully updated
+     *
+     */
     public boolean updateDatabase(String id, String groupname, String groupdescription)
     {
         Log.i(FRAGMENT_NAME, "Message id: " + id);

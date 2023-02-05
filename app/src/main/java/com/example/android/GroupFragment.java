@@ -57,22 +57,12 @@ public class GroupFragment extends Fragment {
     protected static final String FRAGMENT_NAME="GroupFragment";
 
 
-    //private ViewGroupsAdapter adapter;
     private static ArrayList<GroupsInformation> groups = new ArrayList<GroupsInformation>();
-    private TextView GroupName;
     ArrayList<CardViews> cards = new ArrayList<>();
-
-    private  TextView nogroupinfo;
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private  AlertDialog.Builder customDialog;
-    private  Dialog dialog;
-    private Button StartChatBtn;
-    private  String name;
-    protected static RecyclerViewAdapter_AddStudent addstudentadapter;
-    protected RecyclerView StudentList;
-
     protected static RecyclerViewList card_adpater;
     protected RecyclerView CardList;
+    public String name;
 
 
 
@@ -122,8 +112,7 @@ public class GroupFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         TransitionInflater inflaters = TransitionInflater.from(requireContext());
         setEnterTransition(inflaters.inflateTransition(R.transition.slide_right));
-       // setExitTransition(inflaters.inflateTransition(R.transition.slide_left));
-        View test=inflater.inflate(R.layout.view_items, container, false);
+         View test =inflater.inflate(R.layout.view_items, container, false);
 
 
 
@@ -133,14 +122,12 @@ public class GroupFragment extends Fragment {
             CardList = test.findViewById(R.id.GroupinformationList2);
             //nogroupinfo = test.findViewById(R.id.NoGroupinfo);
 
-            card_adpater = new RecyclerViewList(this.getContext(), groups, 1  );
+            card_adpater = new RecyclerViewList(this.getContext(), groups );
             CardList.setAdapter(card_adpater);
             CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
 
 
-            /*nogroupinfo.setText(R.string.NoGroupsPage);
-            nogroupinfo.setVisibility(View.VISIBLE);*/
             CardList.setVisibility(View.INVISIBLE);
 
             FloatingActionButton btn=test.findViewById(R.id.Banner2);
@@ -214,10 +201,6 @@ public class GroupFragment extends Fragment {
     public void onStop() {
         super.onStop();
         Log.i(FRAGMENT_NAME, "In OnStop");
-        if (dialog != null)
-        {
-            dialog.dismiss();
-        }
 
     }
 
@@ -227,10 +210,6 @@ public class GroupFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (dialog != null)
-        {
-            dialog.dismiss();
-        }
         Log.i(FRAGMENT_NAME, "In onPause");
 
     }
@@ -296,116 +275,6 @@ public class GroupFragment extends Fragment {
         // Log.i(FRAGMENT_NAME, "This is the second param: " + name );
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Enables the user to edit their information, either about the group or description of the group
-     * OnClick Handler of the green edit pencil icon gets called by this
-     * @param view
-     */
-
-    public void EditGroups(View view )
-    {
-
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View views = inflater.inflate(R.layout.custom_dialog_edit_groupinfo, null);
-
-        Log.i(FRAGMENT_NAME, "List Item Clicked");
-        int positionitem= (int) view.getTag();
-        GroupsInformation group = groups.get(positionitem);
-
-        customDialog =  new AlertDialog.Builder(getContext());
-        customDialog.setView(views)
-                .setPositiveButton(R.string.SaveButtonText, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        boolean changed = false;
-                        EditText NewGroupName = views.findViewById(R.id.GroupNameEdit);
-                        EditText NewGroupDesc = views.findViewById(R.id.GroupDescEdit);
-
-                        if (NewGroupName.getText().toString().compareTo("") != 0 ){
-                            changed = true;
-                            group.setGroupName(NewGroupName.getText().toString());
-                        }
-                        if (NewGroupDesc.getText().toString().compareTo("") != 0 ) {
-                            changed = true;
-                            group.setGroupDescription( NewGroupDesc.getText().toString());
-                        }
-
-                        if(changed) {
-                            card_adpater.notifyDataSetChanged();
-                            updateDatabase(group.getid(), group.getNameofGroup(), group.getGroupDescription());
-                        }
-
-                    }
-
-                });
-        dialog = customDialog.create();
-        dialog.show();
-
-
-    }
-
-
-    /**
-     * Gets called to update the database information once user changes either the group name or the group Description
-     * @param id : The group id key of the new group instance
-     * @param groupname : Name of the new group
-     * @param groupdescription : Description of the group
-     * @return true: If data has been succefully updated
-     *
-     */
-
-    public boolean updateDatabase(String id, String groupname, String groupdescription)
-    {
-        Log.i(FRAGMENT_NAME, "Message id: " + id);
-        DocumentReference groupRef = db.collection("groups").document(id);
-        groupRef
-                .update("name", groupname)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(FRAGMENT_NAME, "Group name successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(FRAGMENT_NAME, "Error updating document id:" + id, e);
-
-                    }
-                });
-
-        groupRef
-                .update("description", groupdescription)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(FRAGMENT_NAME, "Group Desc successfully updated!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(FRAGMENT_NAME, "Error updating document", e);
-                    }
-                });
-        return true;
-    }
-
-
-
 
 
     /**

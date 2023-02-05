@@ -134,7 +134,7 @@ public class AdminGroupFragment extends Fragment {
             CardList = test.findViewById(R.id.GroupinformationList2);
             //nogroupinfo = test.findViewById(R.id.NoGroupinfo);
 
-            card_adpater = new RecyclerViewList(this.getContext(), groups, 1  );
+            card_adpater = new RecyclerViewList(this.getContext(), groups  );
             CardList.setAdapter(card_adpater);
             CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
@@ -172,7 +172,6 @@ public class AdminGroupFragment extends Fragment {
 
 
     /**
-     * Stores fragment parameters in {@link GroupFragment#mParam1} and {@link GroupFragment#mParam2}. And
      * grab the specified users (@link GroupFragment#mParam1}) name from the database
      * @param savedInstanceState
      */
