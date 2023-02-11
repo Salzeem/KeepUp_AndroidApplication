@@ -6,21 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+
     >
 
-
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/banner_registration_page"-->
-<!--        android:textAllCaps="true"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:gravity="center"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textColor="@color/purple_700"/>-->
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -35,73 +23,79 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:context=".RegisterActivity">
 
-        <TextView
-            android:id="@+id/firstNametextview"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/firstName_register_form"></TextView>
+            android:hint="First Name">
 
-        <EditText
-            android:id="@+id/firstNametext"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstNametext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/firstName_register_form_hint"
-            android:inputType="textEmailAddress"
-            tools:ignore="TouchTargetSizeCheck"></EditText>
+            android:hint="First Name">
 
-        <TextView
-            android:id="@+id/lastNametextview"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lastNametext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/lastName_register_form"></TextView>
+            android:hint="Email Address">
 
-        <EditText
-            android:id="@+id/lastNametext"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/lastName_register_form_hint"
-            android:inputType="textEmailAddress"></EditText>
+            android:hint="Password"
+       >
 
-        <TextView
-            android:id="@+id/emailtextview"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/regPasswordtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextField5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/email_register_form"></TextView>
+            android:hint="Confirm Passoword"
+            android:inputType="textPassword">
 
-        <EditText
-            android:id="@+id/emailtext"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/email_register_form_hint"
-            android:inputType="textEmailAddress"></EditText>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordConfirmationtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
 
-        <TextView
-            android:id="@+id/regPasswordtextview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/password_login_form"></TextView>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/regPasswordtext"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
-
-            ></EditText>
-
-        <TextView
-            android:id="@+id/passwordConfirmationtextview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/password_confirmation_register_form"></TextView>
-
-        <EditText
-            android:id="@+id/passwordConfirmationtext"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword"
-
-            ></EditText>
 
         <Button
             android:id="@+id/registerButton"

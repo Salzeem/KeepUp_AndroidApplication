@@ -27,6 +27,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
@@ -37,25 +38,30 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
 
 
     Context ctx;
-    ArrayList<CardViews> mlist;
     static ArrayList<GroupsInformation> grouplist;
     ArrayList<Classes> classlist;
-    static String TAG = "GroupsRender RecyclerView";
-    int id=0;
-    public RecyclerViewList(Context ctx, ArrayList<GroupsInformation> list)
+    ArrayList<Appointment> appointments;
+    int id;
+    public RecyclerViewList(Context ctx, ArrayList<?> list, int id )
     {
-        this.grouplist = list;
-        this.ctx = ctx;
-
+        if (id ==0 )
+    {
+        this.grouplist = (ArrayList<GroupsInformation>)  list;
     }
 
-    public RecyclerViewList(Context ctx, ArrayList<Classes> list, int id )
-    {
-        this.classlist = list;
+        if (id == 1 ) {
+            this.classlist = (ArrayList<Classes>) list;
+        }
+
+        else if (id ==2)
+        {
+            this.appointments = (ArrayList<Appointment>) list;
+        }
         this.ctx = ctx;
         this.id = id;
 
     }
+
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,7 +74,7 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
 
 
-     if (this.id == 0 ) {
+     if (id == 0 ) {
          holder.description.setText(grouplist.get(position).getGroupDescription());
          holder.name.setText(grouplist.get(position).getNameofGroup());
          holder.course.setText(grouplist.get(position).getCoursename());
@@ -132,12 +138,12 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
          });
 
      }
-     else
+     else if (id == 1)
      {
          holder.description.setText(classlist.get(position).getCourseDesc());
          holder.description.setMaxLines(6);
          holder.name.setText(classlist.get(position).getCoursename());
-         holder.course.setText(classlist.get(position).getCoursename());
+         holder.course.setText(classlist.get(position).getCourseTitle());
          holder.image.setImageResource(R.drawable.class_icon);
          holder.chat.setVisibility(View.INVISIBLE);
          holder.card.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +159,63 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
                  dialog.show();
              }
          });
+
+         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
+             @Override
+             public boolean onLongClick(View view) {
+                 holder.card.setChecked(!holder.card.isChecked());
+                 if (holder.card.isChecked())
+                 {
+                     MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ctx);
+                     builder.setTitle("Remove Course: " +  classlist.get(holder.getAdapterPosition()).getCoursename());
+                     builder.setIcon(R.drawable.class_icon);
+                     builder.setBackground(ctx.getResources().getDrawable(R.drawable.dialog_background, null));
+                     builder.setMessage("Are you sure you want to be removed from this course?");
+                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialogInterface, int i) {
+                             FirebaseFirestore db = FirebaseFirestore.getInstance();
+                             DocumentReference groupsRef = db.collection("user").document(MainActivity.UserId);
+                             groupsRef.update("courses", FieldValue.arrayRemove(classlist.get(holder.getAdapterPosition()).getCoursename()));
+                             //TODO: Set the firebase for classes as a listener to listen for changes then update, same for groups
+                         }
+                     });
+
+                     builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                         @Override
+                         public void onDismiss(DialogInterface dialogInterface) {
+                             holder.card.setChecked(!holder.card.isChecked());
+                         }
+                     });
+                     Dialog dialog = builder.create();
+
+                     dialog.show();
+                 }
+                 return true;
+             }
+         });
+     }
+
+     else
+     {
+        holder.description.setText(appointments.get(position).getTitle());
+         holder.name.setText(appointments.get(position).getCourse());
+         holder.course.setText(appointments.get(position).getDescription());
+         holder.image.setImageResource(R.drawable.appointment_icon);
+         holder.chat.setVisibility(View.INVISIBLE);
+         holder.card.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ctx);
+
+                 builder.setTitle("Appointment: " +  appointments.get(holder.getAdapterPosition()).getTitle());
+                 builder.setIcon(R.drawable.class_icon);
+                 builder.setBackground(ctx.getResources().getDrawable(R.drawable.dialog_background, null));
+                 builder.setMessage(appointments.get(holder.getAdapterPosition()).getDescription());
+                 Dialog dialog = builder.create();
+                 dialog.show();
+             }
+         });
      }
 
 
@@ -163,9 +226,13 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
         if (id==0) {
             return grouplist.size();
         }
-        else
+        else if (id ==1)
         {
             return classlist.size();
+        }
+        else
+        {
+            return appointments.size();
         }
     }
 

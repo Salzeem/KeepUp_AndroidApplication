@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.koushikdutta.async.future.FutureCallback;
@@ -72,7 +74,7 @@ public class RegisterActivity2 extends AppCompatActivity {
     String userID;
 
     private static final int[] idArray2={R.id.levelBtn1,R.id.levelBtn2,R.id.levelBtn3,R.id.levelBtn4};
-    private Switch[] level_switch_buttons=new Switch[idArray2.length];
+    private SwitchMaterial[] level_switch_buttons=new SwitchMaterial[idArray2.length];
 
     /**
      * Sets up the registration view for selecting course level for the user.
@@ -114,7 +116,7 @@ public class RegisterActivity2 extends AppCompatActivity {
 //            }
 //        });
 
-        Switch switch_btn1 = findViewById(R.id.levelBtn1);
+        SwitchMaterial switch_btn1 = findViewById(R.id.levelBtn1);
         switch_btn1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -127,7 +129,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 }
             }
         });
-        Switch switch_btn2 = findViewById(R.id.levelBtn2);
+        SwitchMaterial switch_btn2 = findViewById(R.id.levelBtn2);
         switch_btn2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -140,7 +142,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 }
             }
         });
-        Switch switch_btn3 = findViewById(R.id.levelBtn3);
+        SwitchMaterial switch_btn3 = findViewById(R.id.levelBtn3);
         switch_btn3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -153,7 +155,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 }
             }
         });
-        Switch switch_btn4 = findViewById(R.id.levelBtn4);
+        SwitchMaterial switch_btn4 = findViewById(R.id.levelBtn4);
         switch_btn4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -217,7 +219,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                         termPreference=termList.get(i);
                         levelTV.setVisibility(View.VISIBLE);
                         for (int j=0;j<levelList.size();j++){
-                            level_switch_buttons[j]=(Switch)findViewById(idArray2[j]);
+                            level_switch_buttons[j]=(SwitchMaterial) findViewById(idArray2[j]);
                             level_switch_buttons[j].setVisibility(View.VISIBLE);
                             level_switch_buttons[j].setText(levelList.get(j));
                         }

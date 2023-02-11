@@ -134,7 +134,7 @@ public class AdminGroupFragment extends Fragment {
             CardList = test.findViewById(R.id.GroupinformationList2);
             //nogroupinfo = test.findViewById(R.id.NoGroupinfo);
 
-            card_adpater = new RecyclerViewList(this.getContext(), groups  );
+            card_adpater = new RecyclerViewList(this.getContext(), groups , 0 );
             CardList.setAdapter(card_adpater);
             CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 

@@ -108,8 +108,8 @@ public class ClassFragment extends Fragment {
     }
 
     /**
-     * Sets up view for {@link ClassFragment} and replaces selected {@link ClassFragment#Classlist} item
-     * with {@link AddClassFragment}. It also calls {@link ClassFragment#DisplayRegClasses(ArrayList)} if
+     * Sets up view for {@link ClassFragment} and replaces selected item
+     * with {@link AddClassFragment}. if
      * {@link ClassFragment#mParam1} is not null
      * @param inflater
      * @param container
@@ -163,11 +163,12 @@ public class ClassFragment extends Fragment {
                                                             String courseName = document.getDocument().getString("code");
                                                             String courseSection = document.getDocument().getString("section");
                                                             String courseDesc=document.getDocument().getString("description");
+                                                            String title = document.getDocument().getString("title");
 
                                                             if(temp.contains(courseName+" "+courseSection) && !StudentDesc.containsKey(courseName + " " + courseSection)){
                                                                 Log.i(FRAGMENT_NAME,courseName+" "+courseSection);
                                                                 StudentDesc.put(courseName+" "+courseSection,courseDesc);
-                                                                Classes item = new Classes(courseName + courseSection,  courseDesc );
+                                                                Classes item = new Classes(courseName + " " + courseSection,  courseDesc, title );
                                                                 StudentsClass.add(item);
                                                             }
                                                         }
@@ -192,53 +193,6 @@ public class ClassFragment extends Fragment {
 
 
 
-    /**
-     * Removes selected class from {@link ClassFragment#Studentclass} and updates the view
-     * @param view
-     *//*
-    public void RemoveClass(View view )
-    {
-        int positionitemToDelete = (int) view.getTag();
-        String coursename = Studentclass.get(positionitemToDelete);
-
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(this.getContext());
-
-        builder.setTitle("Are you sure you want to be removed from:" +  coursename);
-        builder.setPositiveButton(R.string.Yes,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Studentclass.remove(positionitemToDelete);
-                        adapter.notifyDataSetChanged();
-                        if (Studentclass.size() == 0 )
-                        {
-
-
-                            noclassinfo.setVisibility(View.VISIBLE);
-                            Classlist.setVisibility(View.INVISIBLE);
-                        }
-                        deletefromdatabase(coursename, mParam1 );
-                    } });
-        builder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                    } });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-*/
-/*    *//**
-     * Deletes course from database given {@code coursename} and {@code userID}
-     * @param coursename
-     * @param userID
-     *//*
-    public void deletefromdatabase(String coursename, String userID )
-    {
-        DocumentReference groupsRef = db.collection("user").document(userID);
-        groupsRef.update("courses", FieldValue.arrayRemove(coursename));
-
-    }*/
 
     @Override
     public void onStop() {
@@ -251,4 +205,6 @@ public class ClassFragment extends Fragment {
         super.onPause();
         StudentsClass.clear();
     }
+
+
 }

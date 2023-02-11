@@ -9,16 +9,18 @@ public class Classes {
 
     String coursenames;
     String courseDesc;
+    String CourseTitle;
 
     /**
      * Assigns {@code coursename} to {@link Classes#coursenames}
      * @param coursename {@link ArrayList} of {@link String} courses
      */
-    public Classes(String coursename, String courseDesc)
+    public Classes(String coursename, String courseDesc, String CourseTitle)
     {
 
         this.coursenames = coursename;
         this.courseDesc = courseDesc;
+        this.CourseTitle = CourseTitle;
 
     }
 
@@ -33,6 +35,11 @@ public class Classes {
 
     public String getCourseDesc() {
         return courseDesc;
+    }
+
+    public String getCourseTitle()
+    {
+        return CourseTitle;
     }
 
 

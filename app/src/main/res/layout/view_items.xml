@@ -9,34 +9,55 @@
     android:orientation="vertical"
     tools:context=".GroupFragment">
 
-
-<ScrollView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-
->
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/GroupinformationList2"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/NoGroupinf"
         android:layout_width="wrap_content"
-        android:minWidth="500dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:clickable="true"
-
-        android:dividerHeight="10.0sp"
-        android:focusable="true"
->
+        android:src="@drawable/no_app"
 
 
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/noinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Groups yet!"
+        app:layout_constraintTop_toBottomOf="@+id/NoGroupinf"
+        android:gravity="center"
+        android:visibility="invisible"/>
+
+    <ScrollView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/GroupinformationList2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            android:clickable="true"
+            android:dividerHeight="10.0sp"
+
+            android:focusable="true"
+            android:minWidth="500dp">
 
 
-</ScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </ScrollView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Banner2"
         android:layout_width="wrap_content"

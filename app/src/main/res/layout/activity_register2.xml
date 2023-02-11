@@ -65,26 +65,26 @@
         android:visibility="invisible"
         />
 
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/levelBtn1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         />
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/levelBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         />
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/levelBtn3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
 
         />
-    <Switch
+    <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/levelBtn4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

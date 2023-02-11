@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.transition.TransitionInflater;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
@@ -50,16 +53,15 @@ import java.util.ArrayList;
 public class AppointmentFragment extends Fragment {
     protected static final String FRAGMENT_NAME="AppointmentFragment";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<ArrayList<String>> bookedAppointments;
-
-    protected static int[] colorIcon = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW};
-    private ViewAppointmentAdapter adapter;
-    private final ArrayList<ArrayList<String>> StudentAppointment = new ArrayList<ArrayList<String>>();
-    private ArrayList<ArrayList<String>> appointments = new ArrayList<ArrayList<String>>();
-
+   //   private ViewAppointmentAdapter adapter;
+    private static RecyclerViewList card_adpater;
+    protected RecyclerView CardList;
+    private final ArrayList<Appointment> StudentAppointment = new ArrayList<Appointment>();
+   //  private ArrayList<ArrayList<String>> appointments = new ArrayList<ArrayList<String>>();
+/*
     private ListView Appointmentlist;
     TextView noAppinfo;
-    ImageView    nogrpinfo;
+    ImageView    nogrpinfo;*/
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,21 +100,21 @@ public class AppointmentFragment extends Fragment {
     /**
      * An {@link ArrayAdapter} subclass that implements {@link ViewAppointmentAdapter#getCount()}
      * and {@link ViewAppointmentAdapter#getView(int, View, ViewGroup)} methods
-     */
+     *//*
     private class ViewAppointmentAdapter extends ArrayAdapter<String> {
         public ViewAppointmentAdapter(@NonNull Context context, int resource) {
             super(context, resource);
         }
 
-        /**
+        *//**
          * Gets the number of appointments the user has scheduled
          * @return {@link Integer} of appointments user has scheduled
-         */
+         *//*
         public int getCount() {
             return StudentAppointment.size();
         }
 
-        /**
+        *//**
          * Inflates {@link R.layout#group_list_view} and adjusts contents (titles, button text, etc...)
          * accordingly with appointment related content.
          *
@@ -120,7 +122,7 @@ public class AppointmentFragment extends Fragment {
          * @param convertView
          * @param parent
          * @return Inflated view
-         */
+         *//*
         public View getView(int position, View convertView, ViewGroup parent) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             LayoutInflater inflater = AppointmentFragment.this.getLayoutInflater();
@@ -140,22 +142,22 @@ public class AppointmentFragment extends Fragment {
                 classIcon.setTag(position);
                 cardGroup.setTag(position);
 
-                message.setText(StudentAppointment.get(position).get(3) + " meeting at " + StudentAppointment.get(position).get(1) + " on " + StudentAppointment.get(position).get(2));
-                groupDescription.setText(StudentAppointment.get(position).get(4) + ". " + StudentAppointment.get(position).get(5));
-                if (StudentAppointment.get(position).size() > 7) {
+                message.setText(StudentAppointment.get(position).getCourse() + " meeting at " + StudentAppointment.get(position).getTime() + " on " + StudentAppointment.get(position).getDate());
+                groupDescription.setText(StudentAppointment.get(position).getTitle() + ". " + StudentAppointment.get(position).getDescription() );
+*//*                if (StudentAppointment.get(position).size() > 7) {
                     cardGroup.setCardBackgroundColor(Color.GREEN);
                 }
                 classIcon.setImageResource(R.drawable.class_icon);
-                classIcon.setColorFilter((colorIcon[(int) Math.floor(Math.random() * (colorIcon.length))]));
-                classIcon.setVisibility(View.INVISIBLE);
-
-                ImageView removeClassIV = result.findViewById(R.id.RemoveGroup);
-                removeClassIV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RemoveAppointment(view);
-                    }
-                });
+                //classIcon.setColorFilter((colorIcon[(int) Math.floor(Math.random() * (colorIcon.length))]));
+                classIcon.setVisibility(View.INVISIBLE);*//*
+//
+//                ImageView removeClassIV = result.findViewById(R.id.RemoveGroup);
+//                removeClassIV.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+////                        RemoveAppointment(view);
+//                    }
+//                });
 
             }
             else {
@@ -163,9 +165,9 @@ public class AppointmentFragment extends Fragment {
             }
 
             return  result;
-        }
+        }*/
 
-    }
+    //}
 
     /**
      * Stores fragment parameters in {@link AppointmentFragment#mParam1}
@@ -197,21 +199,25 @@ public class AppointmentFragment extends Fragment {
         String title="Appointments";
         getActivity().setTitle(title);
         StudentAppointment.clear();
-        View test=inflater.inflate(R.layout.fragment_group, container, false);
-        Appointmentlist= test.findViewById(R.id.GroupinformationList);
+        View test=inflater.inflate(R.layout.view_items, container, false);
+        /*Appointmentlist= test.findViewById(R.id.GroupinformationList);
         noAppinfo = test.findViewById(R.id.NoGroupinfo);
-        nogrpinfo = test.findViewById(R.id.NoGroupinf);
-        adapter = new AppointmentFragment.ViewAppointmentAdapter(this.getContext(), 0);
-        Appointmentlist.setAdapter(adapter);
-        noAppinfo.setText(R.string.noAppAdded);
-        noAppinfo.setVisibility(View.VISIBLE);
-        nogrpinfo.setVisibility(View.VISIBLE);
-        Appointmentlist.setVisibility(View.INVISIBLE);
+        nogrpinfo = test.findViewById(R.id.NoGroupinf);*/
+/*        adapter = new AppointmentFragment.ViewAppointmentAdapter(this.getContext(), 0);
+        Appointmentlist.setAdapter(adapter);*/
+//         noAppinfo.setText(R.string.noAppAdded);
+    /*    noAppinfo.setVisibility(View.VISIBLE);
+        nogrpinfo.setVisibility(View.VISIBLE);*/
+//        Appointmentlist.setVisibility(View.INVISIBLE);
+        CardList = test.findViewById(R.id.GroupinformationList2);
 
+        card_adpater = new RecyclerViewList(this.getContext(), StudentAppointment, 2 );
+        CardList.setAdapter(card_adpater);
+        CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         TransitionInflater inflators = TransitionInflater.from(requireContext());
 
         setEnterTransition(inflators.inflateTransition(R.transition.slide_right));
-        FloatingActionButton btn=test.findViewById(R.id.Banner);
+        FloatingActionButton btn=test.findViewById(R.id.Banner2);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,19 +259,14 @@ public class AppointmentFragment extends Fragment {
                                                             Log.i(FRAGMENT_NAME,currDate.toString());
 
                                                             if(userKey.equals(MainActivity.UserId) && (appDate.isAfter(currDate) || appDate.isEqual(currDate))){
-                                                                ArrayList<String> val=new ArrayList<>();
-                                                                val.add(appID);
-                                                                val.add(time);
-                                                                val.add(date);
-                                                                val.add(course);
-                                                                val.add(title);
-                                                                val.add(desc);
-                                                                temp2.add(val);
+                                                                //  ArrayList<String> val=new ArrayList<>();
+                                                                Appointment new_app = new Appointment(time, course, date, title, desc);
+                                                                StudentAppointment.add(new_app);
                                                             }
 
                                                         }
 
-                                                        DisplayRegApps(temp2);
+                                                        DisplayRegApps(StudentAppointment, test);
 
                                                     } else {
                                                         Log.w(FRAGMENT_NAME, "Error getting documents or no changes yet.", task.getException());
@@ -280,6 +281,8 @@ public class AppointmentFragment extends Fragment {
                     });
         }
 
+
+
         return test;
 
     }
@@ -289,28 +292,33 @@ public class AppointmentFragment extends Fragment {
      * one class. Populates {@link AppointmentFragment#StudentAppointment} with contents of {@code studentClasses}
      * @param studentClasses logged in user specific classes
      */
-    public void DisplayRegApps(ArrayList<ArrayList<String>> studentClasses )
+    public void DisplayRegApps(ArrayList<Appointment> studentClasses , View test)
     {
 
-        if (studentClasses.size()>0 )
+        if (StudentAppointment.size() == 0 )
         {
-            Appointmentlist.setVisibility(View.VISIBLE);
-            noAppinfo.setVisibility(View.INVISIBLE);
+            ShapeableImageView v = test.findViewById(R.id.NoGroupinf);
+            v.setVisibility(View.VISIBLE);
+            v.setImageResource(R.drawable.no_app);
 
         }
-        for (ArrayList<String> app : studentClasses)
+        else
         {
-            StudentAppointment.add(app);
+            ShapeableImageView v = test.findViewById(R.id.NoGroupinf);
+            v.setVisibility(View.INVISIBLE);
+            v.setImageResource(R.drawable.no_app);
+
         }
+
         Log.i(FRAGMENT_NAME, "Appointments: " + StudentAppointment.size());
-        adapter.notifyDataSetChanged();
+        card_adpater.notifyDataSetChanged();
     }
 
-    /**
+  /*  *//**
      * Cancels a scheduled appointment based on user logged in, and the appointment selected
      * in the view
      * @param view
-     */
+     *//*
     public void RemoveAppointment(View view )
     {
         int positionitemToDelete = (int) view.getTag();
@@ -342,11 +350,11 @@ public class AppointmentFragment extends Fragment {
         dialog.show();
     }
 
-    /**
+    *//**
      * Deletes appointments in {@code appointment} from database based on {@code userID}
      * @param appointment {@link ArrayList} of appointments
      * @param userID {@link String} id of the logged in user
-     */
+     *//*
     public void deletefromdatabase(ArrayList<String> appointment, String userID )
     {
         db.collection("appointment").document(appointment.get(0)).delete()
@@ -366,7 +374,7 @@ public class AppointmentFragment extends Fragment {
         groupsRef.update("appointments", FieldValue.arrayRemove(appointment.get(0)));
 
     }
-
+*/
     /**
      * Returns the number corresponding to the month given by {@code monthName}
      * @param monthName {@link String} name of month
@@ -374,5 +382,12 @@ public class AppointmentFragment extends Fragment {
      */
     public static int getNumberFromMonthName(String monthName) {
         return Month.valueOf(monthName.toUpperCase()).getValue();
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
     }
 }

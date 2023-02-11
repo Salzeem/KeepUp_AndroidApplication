@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -122,7 +123,7 @@ public class GroupFragment extends Fragment {
             CardList = test.findViewById(R.id.GroupinformationList2);
             //nogroupinfo = test.findViewById(R.id.NoGroupinfo);
 
-            card_adpater = new RecyclerViewList(this.getContext(), groups );
+            card_adpater = new RecyclerViewList(this.getContext(), groups, 0 );
             CardList.setAdapter(card_adpater);
             CardList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
@@ -144,6 +145,21 @@ public class GroupFragment extends Fragment {
 
             Log.i(FRAGMENT_NAME, "This is the user ID: " + mParam1 );
             DisplayGroupInfo(mParam1);
+
+            if (groups.size() == 0 )
+            {
+                ShapeableImageView v = test.findViewById(R.id.NoGroupinf);
+                v.setVisibility(View.VISIBLE);
+                v.setImageResource(R.drawable.no_groups);
+
+
+            }
+            else
+            {
+                ShapeableImageView v = test.findViewById(R.id.NoGroupinf);
+                v.setVisibility(View.INVISIBLE);
+                v.setImageResource(R.drawable.no_groups);
+            }
 
 
 
@@ -272,6 +288,7 @@ public class GroupFragment extends Fragment {
                     }
 
                 });
+
         // Log.i(FRAGMENT_NAME, "This is the second param: " + name );
 
     }
