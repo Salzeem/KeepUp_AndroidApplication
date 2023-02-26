@@ -7,6 +7,8 @@
     tools:context=".CreateGroupFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+
     style="@style/Theme.Material3.DayNight">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -19,11 +21,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:textColor="@color/eggshell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text= "Groups Registration Page"
+        android:layout_marginBottom="16dp"
         android:textAllCaps="true"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -52,8 +54,8 @@
         <Spinner
              android:id="@+id/CourseSpinner"
             android:layout_width="match_parent"
+            android:background="@drawable/border_spinner"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
 
@@ -110,9 +112,10 @@
 
             <Spinner
                 android:id="@+id/StudentList"
-                android:layout_width="wrap_content"
+                android:layout_width="239dp"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                 android:minHeight="48dp"
+                android:background="@drawable/border_spinner"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/AddButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +127,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add member"
-                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

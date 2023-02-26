@@ -44,16 +44,16 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
     int id;
     public RecyclerViewList(Context ctx, ArrayList<?> list, int id )
     {
-        if (id ==0 )
+        if (id ==0 ) // Id for groups
     {
         this.grouplist = (ArrayList<GroupsInformation>)  list;
     }
 
-        if (id == 1 ) {
+        if (id == 1 ) {  // ID for classes
             this.classlist = (ArrayList<Classes>) list;
         }
 
-        else if (id ==2)
+        else if (id ==2) // ID for appointments
         {
             this.appointments = (ArrayList<Appointment>) list;
         }
@@ -196,11 +196,11 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
          });
      }
 
-     else
+     else if (id ==2 )
      {
         holder.description.setText(appointments.get(position).getTitle());
          holder.name.setText(appointments.get(position).getCourse());
-         holder.course.setText(appointments.get(position).getDescription());
+         holder.course.setText(appointments.get(position).getDescription() + "\n" + appointments.get(position).getDate() + "@" + appointments.get(position).getTime());
          holder.image.setImageResource(R.drawable.appointment_icon);
          holder.chat.setVisibility(View.INVISIBLE);
          holder.card.setOnClickListener(new View.OnClickListener() {
@@ -208,10 +208,10 @@ public class RecyclerViewList extends RecyclerView.Adapter<RecyclerViewList.Recy
              public void onClick(View view) {
                  MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ctx);
 
-                 builder.setTitle("Appointment: " +  appointments.get(holder.getAdapterPosition()).getTitle());
+                 builder.setTitle("Appointment: " +  appointments.get(holder.getAdapterPosition()).getTitle() + " " + appointments.get(position).getDate() + "@" + appointments.get(position).getTime());
                  builder.setIcon(R.drawable.class_icon);
                  builder.setBackground(ctx.getResources().getDrawable(R.drawable.dialog_background, null));
-                 builder.setMessage(appointments.get(holder.getAdapterPosition()).getDescription());
+                 builder.setMessage(appointments.get(holder.getAdapterPosition()).getDescription() );
                  Dialog dialog = builder.create();
                  dialog.show();
              }
