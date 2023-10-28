@@ -288,7 +288,7 @@ public class AppointmentFragment extends Fragment {
     }
 
     /**
-     * Sets {@link AppointmentFragment#Appointmentlist} to visible if the student has selected at least
+     * Sets {@link AppointmentFragment} to visible if the student has selected at least
      * one class. Populates {@link AppointmentFragment#StudentAppointment} with contents of {@code studentClasses}
      * @param studentClasses logged in user specific classes
      */
@@ -374,6 +374,8 @@ public class AppointmentFragment extends Fragment {
         groupsRef.update("appointments", FieldValue.arrayRemove(appointment.get(0)));
 
     }
+                db.collection("courses").whereEqualTo("instructor_id", mParam1)
+
 */
     /**
      * Returns the number corresponding to the month given by {@code monthName}

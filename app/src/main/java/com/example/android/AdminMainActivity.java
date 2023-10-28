@@ -1,70 +1,75 @@
 package com.example.android;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
 /**
- * This Activity setups up a view to act as the "Main activity" screen for the admin
+ * This Activity setups up a view to act as the "Home" screen
  */
 public class AdminMainActivity extends AppCompatActivity {
-    Button adminClassBtn;
-    Button adminAppointmentBtn;
-    Button adminGroupsBtn;
-    ArrayList<Class> fragments = new ArrayList<>();
+    protected static final String ACTIVITY_NAME="MainActivity";
+    public static String UserId;
 
-
-
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public static String userID;
 
     /**
-     * Inflates the given menu
-     * @param menu {@link Menu} to inflate
+     * Inflates {@link R.menu#menu_main} with {@code menu}
+     * @param menu {@link Menu} menu to be inflated
      * @return
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main2, menu);
-        // Might need to change, this actually loads the first fragment and pases the Bundle info
-
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    public  String getUserId() {
+        return UserId;
+    }
+
     /**
-     * Handle given menu item being selected
-     * @param item {@link MenuItem} that's been selected
-     * @return {@link Boolean} return value from calling the supers {@code onOptionsItemSelected()}
+     * Assigns functions for each menu item to run when selected
+     * @param item {@link MenuItem} menu item that has been selected
+     * @return
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-//            case R.id.action_settings:
-//                return true;
-            case R.id.help2:
+            case R.id.help:
                 showHelp();
                 return true;
-            case R.id.Signout2:
+            case R.id.Signout:
                 SignUserOut();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -78,7 +83,7 @@ public class AdminMainActivity extends AppCompatActivity {
     {
 
         LayoutInflater inflater = this.getLayoutInflater();
-        final View views = inflater.inflate(R.layout.admin_help_dialog_box, null);
+        final View views = inflater.inflate(R.layout.help_dialog_box, null);
 
         AlertDialog.Builder customDialog =  new AlertDialog.Builder(this);
         customDialog.setView(views)
@@ -96,113 +101,71 @@ public class AdminMainActivity extends AppCompatActivity {
     /**
      * Switches view to LoginActivity
      */
-    public void SignUserOut()
-    {
+    public void SignUserOut() {
+        FirebaseAuth.getInstance().signOut();
         finish();
     }
 
+    public static String title="Home";
+
     /**
-     * Sets up the view for this activity
+     * Sets up the home screen view, and removes all fragments from the support fragment
+     * manager
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_main);
+        setTitle(title);
+        setContentView(R.layout.activity_main);
         Bundle extras=getIntent().getExtras();
+        UserId= extras.getString("userID");
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.admin_toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        fragments.add(AdminGroupFragment.class);
-        fragments.add(AppointmentFragment.class);
-
-        ImageView LeftArrow = findViewById(R.id.LeftArrow);
-        ImageView RightArrow = findViewById(R.id.RightArrow);
-
-
-
-//        Bundle extras=getIntent().getExtras();
-//        userID = extras.getString("userID");
-
+        BottomNavigationView nav = findViewById(R.id.bottom_navigation);
         FragmentManager fragmentManager =getSupportFragmentManager();
+        nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+                    case R.id.appointments:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView,AdminAppointmentFragment.class,null)
+                                .setReorderingAllowed(true)
+                                .addToBackStack(null)
+                                .commit();
+                        return true;
 
-        adminGroupsBtn=findViewById(R.id.admin_groups_button);
-        adminGroupsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.adminFragmentContainerView,AdminGroupFragment.class,extras)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("tempBackStack")
-                        .commit();
-            }
-        });
-        LeftArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getTitle().equals("Admin Appointments"))
-                {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.adminFragmentContainerView,AdminGroupFragment.class,extras)
-                            .setReorderingAllowed(true)
-                            .addToBackStack("tempBackStack")
-                            .commit();
-                }
-                else if (getTitle().equals("Groups"))
-                {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.adminFragmentContainerView,AdminAppointmentFragment.class,extras)
-                            .setReorderingAllowed(true)
-                            .addToBackStack("tempBackStack")
-                            .commit();
-                }
-            }
-        });
-        RightArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getTitle().equals("Admin Appointments"))
-                {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.adminFragmentContainerView,AdminGroupFragment.class,extras)
-                            .setReorderingAllowed(true)
-                            .addToBackStack("tempBackStack")
-                            .commit();
-                }
-                else if (getTitle().equals("Groups"))
-                {
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.adminFragmentContainerView,AdminAppointmentFragment.class,extras)
-                            .setReorderingAllowed(true)
-                            .addToBackStack("tempBackStack")
-                            .commit();
+
+                    case R.id.groups:
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.fragmentContainerView,AdminGroupFragment.class,extras)
+                                .setReorderingAllowed(true)
+                                .addToBackStack(null)
+                                .commit();
+                        return true;
+                    default:
+                        return true;
+
+
+
                 }
             }
         });
 
-
-
-
-        adminAppointmentBtn=findViewById(R.id.admin_schedule_button);
-        adminAppointmentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.adminFragmentContainerView,AdminAppointmentFragment.class,extras)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("tempBackStack")
-                        .commit();
-            }
-        });
-        adminGroupsBtn.performClick();
 
     }
 
+
     /**
-     * Calls the supers {@code onDestroy()}
+     * Calls the super destroy method
      */
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
     }
+
 }

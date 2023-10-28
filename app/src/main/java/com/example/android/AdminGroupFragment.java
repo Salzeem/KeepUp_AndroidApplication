@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -144,7 +145,7 @@ public class AdminGroupFragment extends Fragment {
             nogroupinfo.setVisibility(View.VISIBLE);*/
             CardList.setVisibility(View.INVISIBLE);
 
-            CardView btn=test.findViewById(R.id.Banner2);
+            FloatingActionButton btn=test.findViewById(R.id.Banner2);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
